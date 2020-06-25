@@ -183,3 +183,11 @@
 #' }
 #'
 "migratory_temperature_proportion_over_20"
+
+#' Temperature Effect on Egg Mortality
+#' @description The mean estimate of temperature effect used for egg to fry survival
+#' @format  A length 31 vector
+#' @details
+#' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
+#'
+"egg_temperature_effect"

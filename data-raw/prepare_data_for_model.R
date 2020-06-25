@@ -145,3 +145,13 @@ degree_days <- zero_degree_days %>%
 dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:1999)
 
 usethis::use_data(degree_days, overwrite = TRUE)
+
+# Egg temperature effect -----
+egg_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
+  mutate(mean_temp_effect = (Dry + Wet)/2) %>%
+  select(watershed = Watershed.full, mean_temp_effect) %>%
+  pull(mean_temp_effect)
+
+names(egg_temperature_effect) <- cvpia_watershed
+
+usethis::use_data(egg_temperature_effect, overwrite = TRUE)
