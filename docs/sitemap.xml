@@ -4,15 +4,18 @@
     <loc>https://flowwest.github.io/cvpiaTemperature//index.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/deg_days.html</loc>
+    <loc>https://flowwest.github.io/cvpiaTemperature//reference/degree_days.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/delta_temps.html</loc>
+    <loc>https://flowwest.github.io/cvpiaTemperature//reference/delta_temperature.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/juv_temp.html</loc>
+    <loc>https://flowwest.github.io/cvpiaTemperature//reference/egg_temperature_effect.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/prop_temp_over_20_migr_cor.html</loc>
+    <loc>https://flowwest.github.io/cvpiaTemperature//reference/migratory_temperature_proportion_over_20.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaTemperature//reference/stream_temperature.html</loc>
   </url>
 </urlset>

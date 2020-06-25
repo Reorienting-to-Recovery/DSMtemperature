@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • cvpiaTemperature</title>
+<title>Migratory Corridor Water Temperature — migratory_temperature_proportion_over_20 • cvpiaTemperature</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,12 +25,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Migratory Corridor Water Temperature — migratory_temperature_proportion_over_20" />
+
+<meta property="og:description" content="The median proportion of days over 20°C per month" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -59,7 +62,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">cvpiaTemperature</a>
+        <a class="navbar-link" href="../index.html">cvpiaTemperature</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.0</span>
       </span>
     </div>
@@ -67,10 +70,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
       
@@ -91,22 +94,63 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Migratory Corridor Water Temperature</h1>
+    
+    <div class="hidden name"><code>migratory_temperature_proportion_over_20.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Sadie Gill</strong>. Maintainer, author. 
-        </p>
-      </li>
-    </ul>
+    <div class="ref-description">
+    
+    <p>The median proportion of days over 20°C per month</p>
+    
+    </div>
+
+    <pre class="usage"><span class='no'>migratory_temperature_proportion_over_20</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>a 31 by 12 matrix [watershed by month]</p>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <ul>
+<li><p>Method developed by James T. Peterson <a href='mailto:jt.peterson@oregonstate.edu'>jt.peterson@oregonstate.edu</a></p></li>
+<li><p>Data wrangling by Sadie Gill <a href='mailto:sgill@flowwest.com'>sgill@flowwest.com</a></p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Watersheds were assigned membership to one of the following three locations to
+represent the migratory corridor temperature conditions. The data was summarised
+by calculating the median proportion of days over 20°C for each month during the available period of record.</p>
+<p>Sacramento River, <a href='http://cdec.water.ca.gov/dynamicapp/staMeta?station_id=WLK'>Sacramento River Below Wilkins Slough</a>:
+Upper Sacramento River, Antelope Creek, Battle Creek, Bear Creek, Big Chico Creek Butte Creek, Clear Creek, Cottonwood Creek,
+Cow Creek, Deer Creek, Elder Creek, Mill Creek, Paynes Creek, Stony Creek, Thomes Creek, Bear River, Feather River, Yuba River
+American River</p>
+<p>South Delta, <a href='http://cdec.water.ca.gov/dynamicapp/staMeta?station_id=MOK'>Mokelumne River At San Joaquin River</a>:
+Calaveras River, Cosumnes River, Mokelumne River</p>
+<p>San Joaquin River, <a href='https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&amp;site_no=11303500'>San Joaquin River Near Vernalis</a>:
+Merced River, Stanislaus River, Tuolumne River</p>
+<p>No spawning in these regions (assigned value of zero):
+Upper-mid Sacramento River, Sutter Bypass, Lower-mid Sacramento River, Yolo Bypass, Lower Sacramento River, San Joaquin River</p>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
 
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
+
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">

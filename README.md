@@ -8,19 +8,20 @@
 #### Installation
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("FlowWest/cvpiaTemperature")
+# install.packages("remotes")
+remotes::install_github("FlowWest/cvpiaTemperature")
 ```
 
 #### Usage
-This package provides temperature related datasets to the [`cvpiaData`](https://flowwest.github.io/cvpiaData/) package.
+This package provides temperature related datasets for life cycle models used by 
+the CVPIA Science Integratio Team (SIT).
 
 ``` r
 # datasets within the package
 data(package = 'cvpiaTemperature')
 
 # explore temperature modeling metadata
-?cvpiaTemperature::juv_temp
+?cvpiaTemperature::stream_temperature
 ```
 
 #### About the Models
