@@ -1,13 +1,6 @@
 #' Monthly Mean Water Temperature
-#' @description A dataset containing the monthly mean water temperature in
-#' celsius for each CVPIA watershed 1979-1999.
-#'
-#' @format dataframe with 7,440 rows and 3 variables
-#' \describe{
-#'  \item{date}{calendar date, monthly value 1979-1999}
-#'  \item{watershed}{CVPIA watershed name}
-#'  \item{monthly_mean_temp_c}{modeled monthly mean temperature in °C}
-#'  }
+#' @description The 1979-1999 the monthly mean water temperature in °C
+#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details The following four methods were used to estimate the monthly mean water
 #' temperature for the watersheds during 1979-1999:
@@ -98,27 +91,12 @@
 #'   \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@@flowwest.com}
 #' }
 #'
-"monthly_mean_temperature"
-
-#' Rearing Stream Temperature
-#' @description The 1979-1999 rearing temperature in °C
-#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
-#' @details
-#' Calculated using \code{\link{monthly_mean_temperature}}
-#'
-#'
 "stream_temperature"
 
 #' Degree Days
 #'
-#' @description The monthly accumulated degree days (celsius)
-#'
-#' @format dataframe with 7,812 rows and 3 variables
-#' \describe{
-#'   \item{date}{calendar date, monthly value 1979-1999}
-#'   \item{watershed}{CVPIA watershed name}
-#'   \item{degdays}{monthly ATU in °C}
-#' }
+#' @description The monthly accumulated degree days °C
+#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details
 #' For watersheds with HEC-5Q modeled results, the calculation for degree days
@@ -127,7 +105,7 @@
 #' For the other regions, the calculation for degree days is the monthly mean
 #' temperature multiplied by the number of days in the month.
 #'
-#' For more details about the temperature modeling see \code{\link{juv_temp}}
+#' For more details about the temperature modeling see \code{\link{stream_temperature}}
 #'
 #' @source
 #' \itemize{
@@ -135,29 +113,28 @@
 #'   \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@@flowwest.com}
 #' }
 #'
-"deg_days"
+"degree_days"
 
 #' Delta Temperature
 #'
-#' @description Rearing temperature in the North and South Delta
-#'
-#' @format dataframe with 504 rows and 3 variables
-#' \describe{
-#'   \item{date}{calendar date, monthly value 1980-1999}
-#'   \item{watershed}{CVPIA watershed name}
-#'   \item{monthly_mean_temp_c}{modeled monthly mean temperature in °C}
-#' }
+#' @description The 1979-2000 rearing temperature in the North and South Delta in °C
+#' @format a 3 dimensional array [12 months, 22 years, 2 deltas]
 #'
 #' @details
-#' Water temperature in the Delta was modeled as a function of air temperature.
+#' Water temperature in the Deltas were modeled as a function of air temperature.
 #'
 #' North Delta was modeled using a sample of recent measured water temperature at
 #' CDEC station \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=EMM}{EMM}
 #' and NOAA CDO air temperature data from \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00040232/detail}{Antioch}.
 #'
+#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
+#'
 #' South Delta was modeled using a sample of recent measured water temperature at
 #' CDEC station \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=MTB}{MTB}
 #' and NOAA CDO air temperature data \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Airport}.
+#'
+#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
+#' below Vernalis.
 #'
 #' Air Temperature Data Source:
 #'  \itemize{
@@ -172,19 +149,13 @@
 #' @source
 #' Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@@flowwest.com}
 #'
-"delta_temps"
+"delta_temperature"
 
 #' Migratory Corridor Water Temperature
 #'
 #' @description The median proportion of days over 20°C per month
 #'
-#' @format dataframe with 300 rows and 4 variables
-#' \describe{
-#'   \item{order}{ordering of watersheds within salmon life cycle model}
-#'   \item{watershed}{CVPIA watershed}
-#'   \item{month}{integer representation of calendar month}
-#'   \item{median_p20}{median proportion of temperature over 20°C}
-#' }
+#' @format a 31 by 12 matrix [watershed by month]
 #'
 #' @details
 #' Watersheds were assigned membership to one of the following three locations to
@@ -202,8 +173,13 @@
 #' San Joaquin River, \href{https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&site_no=11303500}{San Joaquin River Near Vernalis}:
 #' Merced River, Stanislaus River, Tuolumne River
 #'
-#' NA (no spawning in these regions):
+#' No spawning in these regions (assigned value of zero):
 #' Upper-mid Sacramento River, Sutter Bypass, Lower-mid Sacramento River, Yolo Bypass, Lower Sacramento River, San Joaquin River
 #'
-#' @source Sadie Gill \email{sgill@@flowwest.com}
-"prop_temp_over_20_migr_cor"
+#' @source
+#' \itemize{
+#'   \item Method developed by James T. Peterson \email{jt.peterson@oregonstate.edu}
+#'   \item Data wrangling by Sadie Gill \email{sgill@@flowwest.com}
+#' }
+#'
+"migratory_temperature_proportion_over_20"
