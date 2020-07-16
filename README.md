@@ -13,8 +13,7 @@ remotes::install_github("FlowWest/cvpiaTemperature")
 ```
 
 #### Usage
-This package provides temperature related datasets for life cycle models used by 
-the CVPIA Science Integratio Team (SIT).
+This package provides temperature related datasets to the [cvpiaModels](https://flowwest.github.io/cvpiaModels/) package
 
 ``` r
 # datasets within the package
