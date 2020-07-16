@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">cvpiaTemperature</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.0</span>
       </span>
     </div>
 
@@ -72,18 +72,18 @@
 <div id="installation" class="section level4">
 <h4 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"FlowWest/cvpiaTemperature"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"FlowWest/cvpiaTemperature"</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level4">
 <h4 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h4>
-<p>This package provides temperature related datasets to the <a href="https://flowwest.github.io/cvpiaData/"><code>cvpiaData</code></a> package.</p>
+<p>This package provides temperature related datasets to the <a href="https://flowwest.github.io/cvpiaModels/">cvpiaModels</a> package</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># datasets within the package</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="dt">package =</span> <span class="st">'cvpiaTemperature'</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># explore temperature modeling metadata</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">?cvpiaTemperature<span class="op">::</span>juv_temp</a></code></pre></div>
+<a class="sourceLine" id="cb2-5" data-line-number="5">?cvpiaTemperature<span class="op">::</span>stream_temperature</a></code></pre></div>
 </div>
 <div id="about-the-models" class="section level4">
 <h4 class="hasAnchor">

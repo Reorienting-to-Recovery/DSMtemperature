@@ -15,10 +15,11 @@ reference:
 - title: Temperature Datasets
   desc: Temperature related data sets used by the CVPIA Salmon Population Model
   contents:
-  - juv_temp
-  - delta_temps
-  - deg_days
-  - prop_temp_over_20_migr_cor
+  - stream_temperature
+  - delta_temperature
+  - degree_days
+  - migratory_temperature_proportion_over_20
+  - egg_temperature_effect
 
 navbar:
   type: default

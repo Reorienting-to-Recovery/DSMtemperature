@@ -3,6 +3,7 @@ library(readxl)
 library(lubridate)
 library(stringr)
 
+cvpia_watershed <- cvpiaFlow::watershed_ordering$watershed
 # mike wright's notes on temperature
 
 # Here 5q_date is the 6-hourly time stamps on the 5Q output; note that it's on
@@ -15,11 +16,6 @@ library(stringr)
 
 # read in date mapping calLite -> calsim
 cl_dates <- read_csv('data-raw/calLite_calSim_date_mapping.csv')
-
-# read in watershed ids and names for ordering output
-cvpia_watershed_ids <- read_csv('data-raw/cvpia_trib_names.csv')
-cvpia_watershed <- read_csv('data-raw/cvpia_trib_names.csv') %>%
-  pull(watershed)
 
 # clean mike wright's temperature modeling output
 temperatures <- read_csv('data-raw/tempmaster.csv', skip = 1) %>%
@@ -63,12 +59,42 @@ monthly_mean_temperature <- temperatures %>%
   spread(watershed, monthly_mean_temp_c) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
-juv_temp <- monthly_mean_temperature %>%
-  filter(year(date) > 1979)
+stream_temperature <- monthly_mean_temperature %>%
+  spread(date, monthly_mean_temp_c) %>%
+  left_join(cvpiaFlow::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  cvpiaFlow::create_model_array()
 
-devtools::use_data(juv_temp, overwrite = TRUE)
+dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:1999)
 
-# degree days
+usethis::use_data(stream_temperature, overwrite = TRUE)
+
+# delta temps ----------------------------------
+dn <- read_rds('data-raw/deltas/north_delta_water_temp_c.rds')
+ds <- read_rds('data-raw/deltas/south_delta_water_temp_c.rds')
+
+delta_temperature <- array(NA, dim = c(12, 22, 2))
+
+delta_temperature[ , , 1] <- dn %>%
+  mutate(year = year(date), month = month(date)) %>%
+  select(-date) %>%
+  spread(year, `North Delta`) %>%
+  select(-month) %>%
+  as.matrix()
+
+delta_temperature[ , , 2] <- ds %>%
+  mutate(year = year(date), month = month(date)) %>%
+  select(-date) %>%
+  spread(year, `South Delta`) %>%
+  select(-month) %>%
+  as.matrix()
+
+dimnames(delta_temperature) <- list(month.abb, 1979:2000, c('North Delta', 'South Delta'))
+
+usethis::use_data(delta_temperature, overwrite = TRUE)
+
+# degree days -----
 cl_years <- cl_dates %>%
   mutate(cl_year = year(cl_date),
          cs_year = year(cs_date)) %>%
@@ -77,12 +103,12 @@ cl_years <- cl_dates %>%
 
 # watershed id zeros: 16*, 17, 21, 22, 24, 31 (no spawning)
 # *upper mid sac (16) spawning area is represented within upper sac in model
-zero_watersheds <- cvpia_watershed_ids %>%
+no_spawning_regions <- cvpiaFlow::watershed_ordering %>%
   filter(order %in% c(16, 17, 21, 22, 24, 31)) %>%
   pull(watershed)
 
-hec5q_degday <- temperatures %>%
-  filter(!(watershed %in% zero_watersheds)) %>% #no spawning
+hec5q_degree_days <- temperatures %>%
+  filter(!(watershed %in% no_spawning_regions)) %>% #no spawning
   group_by(cl_year = year(date), month = month(date), watershed) %>%
   summarise(degdays = sum(mean_daily_temp_C, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -92,49 +118,40 @@ hec5q_degday <- temperatures %>%
   select(date, watershed, degdays)
 
 # take modeled mean monthly flow and multiple by number of days to estimate degree days
-estimate_watersheds <- cvpia_watershed[!cvpia_watershed %in% c(unique(hec5q_degday$watershed), zero_watersheds)]
+estimate_watersheds <- cvpia_watershed[!cvpia_watershed %in% c(unique(hec5q_degree_days$watershed), no_spawning_regions)]
 
-estimate_degday <- monthly_mean_temperature %>%
+estimated_degree_days <- monthly_mean_temperature %>%
   mutate(num_days = days_in_month(date),
          degdays = monthly_mean_temp_c * num_days,
          date = ymd(paste(year(date), month(date), 1, sep = '-'))) %>%
   filter(watershed %in% estimate_watersheds) %>%
   select(date, watershed, degdays)
 
-zero_degday <- tibble(
+zero_degree_days <- tibble(
   date = rep(seq(as.Date('1979-01-01'), as.Date('1999-12-01'), by = 'month'), each = 6),
-  watershed = rep(zero_watersheds, times = 252),
-  degdays = as.numeric(NA)
+  watershed = rep(no_spawning_regions, times = 252),
+  degdays = 0
 )
 
-deg_days <- zero_degday %>%
-  bind_rows(hec5q_degday) %>%
-  bind_rows(estimate_degday)
-
-devtools::use_data(deg_days, overwrite = TRUE)
-
-deg_days %>%
+degree_days <- zero_degree_days %>%
+  bind_rows(hec5q_degree_days) %>%
+  bind_rows(estimated_degree_days) %>%
   spread(date, degdays) %>%
-  left_join(cvpia_watershed_ids) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
   arrange(order) %>%
-  select(-order)
+  select(-watershed, -order) %>%
+  cvpiaFlow::create_model_array()
 
-modelss <- tibble(watershed = unique(hec5q_degday$watershed), model = 'hec5q') %>%
-  bind_rows(tibble(watershed = unique(estimate_degday$watershed), model = 'sadie'))
+dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:1999)
 
-deg_days %>%
-  left_join(modelss) %>%
-  filter(!is.na(degdays)) %>%
-  ggplot(aes(x = date, y = degdays, color = model)) +
-  geom_line() +
-  theme_minimal() +
-  facet_wrap(~watershed)
+usethis::use_data(degree_days, overwrite = TRUE)
 
-# delta temps ----------------------------------
-dn <- read_rds('data-raw/deltas/north_delta_water_temp_c.rds')
-ds <- read_rds('data-raw/deltas/south_delta_water_temp_c.rds')
-delta_temps <- dn %>%
-  left_join(ds) %>%
-  gather(watershed, monthly_mean_temp_c, -date)
+# Egg temperature effect -----
+egg_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
+  mutate(mean_temp_effect = (Dry + Wet)/2) %>%
+  select(watershed = Watershed.full, mean_temp_effect) %>%
+  pull(mean_temp_effect)
 
-use_data(delta_temps)
+names(egg_temperature_effect) <- cvpia_watershed
+
+usethis::use_data(egg_temperature_effect, overwrite = TRUE)

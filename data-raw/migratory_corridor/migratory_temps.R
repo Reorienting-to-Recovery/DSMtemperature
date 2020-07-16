@@ -4,7 +4,6 @@ library(dataRetrieval)
 library(lubridate)
 library(rnoaa)
 
-
 # South Delta Tribs------------
 # sdt <- cdec_query(stations = 'MOK', sensor_num = '25', dur_code = 'E', start_date = '2008-06-17')
 #
@@ -145,13 +144,16 @@ missing <- cvpiaData::watershed_ordering[c(16, 17, 21, 22, 24, 31), ]
 other_sheds <- tibble(order = rep(missing$order, 12),
        watershed = rep(missing$watershed, 12),
        month = rep(1:12, each = 6),
-       median_p20 = NA)
+       median_p20 = 0)
 
-prop_temp_over_20_migr_cor <- median_p20 %>%
+migratory_temperature_proportion_over_20 <- median_p20 %>%
   left_join(watershed_groups) %>%
   select(order, watershed, month, median_p20) %>%
   bind_rows(other_sheds) %>%
-  arrange(month, order)
+  arrange(month, order) %>%
+  spread(month, median_p20) %>%
+  select(`1`:`12`) %>%
+  as.matrix()
+dimnames(migratory_temperature_proportion_over_20) <- list(cvpiaFlow::watershed_ordering$watershed, month.abb)
 
-devtools::use_data(prop_temp_over_20_migr_cor, overwrite = TRUE)
-
+usethis::use_data(migratory_temperature_proportion_over_20, overwrite = TRUE)
