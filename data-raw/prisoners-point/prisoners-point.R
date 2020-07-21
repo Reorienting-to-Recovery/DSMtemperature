@@ -97,4 +97,26 @@ prisoners_point_water_temps <-
     location = "Prisoner's Point"
   )
 
+# restructure to fit into cvpiaModels
+prisoners_point_temperature <- prisoners_point_water_temps %>%
+  transmute(
+    year = year(date),
+    month = month(date),
+    water_temp) %>%
+  spread(year, water_temp) %>%
+  select(-month) %>%
+  as.matrix()
+
+row.names(prisoners_point_temperature) <- month.abb
+
+usethis::use_data(prisoners_point_temperature)
+
+
+
+
+
+
+
+
+
 
