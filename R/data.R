@@ -191,3 +191,16 @@
 #' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
 #'
 "egg_temperature_effect"
+
+
+
+#' Prisoner's Point Water Temperature
+#' @description Monthly water temperature at Prisoner's Point from 1979-2000
+#' @format A matrix 12x22 [12 months by 21 years]
+#' @details Temperature at Prisoner's Point was developed as a function of air
+#' temperature. The most recent water temperature at Rough and Ready Island
+#' (CDEC: RRI) was used for water temperature. Air temperature was obtained using
+#' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
+#' @export
+"prisoners_point_temperature"
+
