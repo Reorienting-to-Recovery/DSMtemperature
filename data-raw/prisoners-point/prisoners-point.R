@@ -2,6 +2,13 @@ library(CDECRetrieve)
 library(tidyverse)
 library(lubridate)
 
+# Query for obtaining updated air temps, needs to be filtered to the stockton air
+# temperature, and token needs to be obtained from NOAA CDO service.
+# stockton_air <-
+#   rnoaa::ncdc(datasetid = 'GSOM', locationid = 'CITY:US060042', datatypeid = 'TAVG',
+#               startdate = '1998-01-01', enddate = '2007-12-31', token = token, limit = 1000)
+
+
 # Air temperature at the stockton airport
 stockton_air <- read_csv("data-raw/prisoners-point/stockton-air-temp-1979-2020.csv",
                          skip = 1,
