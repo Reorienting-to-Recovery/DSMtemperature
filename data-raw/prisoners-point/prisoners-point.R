@@ -61,11 +61,7 @@ ppoint_data <- rri_water_temp %>%
   ) %>% ungroup() %>%
   transmute(
     date = ymd(paste0(year, "-", month, "-01")),
-    water_temp,
-    water_year = case_when(
-      month(date) %in% 10:12 ~ year(date) + 1,
-      TRUE ~ year(date)
-    )
+    water_temp
   ) %>%
   left_join(stockton_air_monthly, by = c("date" = "date"))
 
@@ -75,7 +71,7 @@ ppoint_data %>%
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x)
 
-ppoint_temp_model <- lm(water_temp ~ air_temp, data=rri_water)
+ppoint_temp_model <- lm(water_temp ~ air_temp, data=ppoint_data)
 summary(ppoint_temp_model)
 
 ppoint_model_results <- tibble(
@@ -86,13 +82,13 @@ ppoint_model_results <- tibble(
 )
 
 # what do these look when compared to observed results
-rri_water_temp_model_results %>%
+ppoint_model_results %>%
   ggplot() +
   geom_line(aes(date, observed, color = "Observed")) +
   geom_line(aes(date, preds, color = "Prediction"))
 
 # residual distributions by month
-rri_water_temp_model_results %>%
+ppoint_model_results %>%
   mutate(month = factor(month.abb[month(date)], levels = month.abb)) %>%
   ggplot(aes(resid, fill = month)) + geom_density(alpha=0.4)
 
