@@ -45,7 +45,10 @@ stockton_air_monthly <- stockton_air %>%
   )
 
 # Water temperature
-rri_water_temp <- cdec_query("rri", "25", "d", "2004-01-01")
+# rri_water_temp <- cdec_query("rri", "25", "d", "2004-01-01")
+# write_rds(rri_water_temp, "data-raw/prisoners-point/rri-water-temps-2004-2020.rds")
+
+rri_water_temp <- read_rds("data-raw/prisoners-point/rri-water-temps-2004-2020.rds")
 
 # clean up some outlier values from water temperatures and left
 # join the air temp
