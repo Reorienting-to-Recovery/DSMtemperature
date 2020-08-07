@@ -192,6 +192,15 @@
 #'
 "egg_temperature_effect"
 
+#' Vernalis Water Temperature
+#' @description Monthly water temperature at Vernalis from 1979-2000
+#' @format A matrix 12x21 [12 months by 21 years]
+#' @details Temperature at Vernalis was developed as a function of air
+#' temperature. The most recent water temperature at San Joation River (SJR)
+#' \href{https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=SJR}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
+#' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
+#' @export
+"vernalis_temperature"
 
 
 #' Prisoner's Point Water Temperature
