@@ -5,7 +5,7 @@
 \alias{prisoners_point_temperature}
 \title{Prisoner's Point Water Temperature}
 \format{
-A matrix 12x22 [12 months by 21 years]
+A matrix 12x21 [12 months by 21 years]
 }
 \usage{
 prisoners_point_temperature

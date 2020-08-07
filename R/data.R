@@ -196,7 +196,7 @@
 
 #' Prisoner's Point Water Temperature
 #' @description Monthly water temperature at Prisoner's Point from 1979-2000
-#' @format A matrix 12x22 [12 months by 21 years]
+#' @format A matrix 12x21 [12 months by 21 years]
 #' @details Temperature at Prisoner's Point was developed as a function of air
 #' temperature. The most recent water temperature at Rough and Ready Island
 #' \href{https://cdec.water.ca.gov/dynamicapp/staSearch?sta_chk=on&sta=RRI&sensor=211&collect=NONE+SPECIFIED&dur=&active=&lon1=&lon2=&lat1=&lat2=&elev1=-5&elev2=99000&nearby=&basin=NONE+SPECIFIED&hydro=NONE+SPECIFIED&county=NONE+SPECIFIED&agency_num=160&display=sta}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
