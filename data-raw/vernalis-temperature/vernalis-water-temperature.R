@@ -97,7 +97,7 @@ vernalis_water_temperature_df %>%
 
 
 # restructure for cvpiaModels package
-vernalis_water_temperature <-
+vernalis_temperature <-
   vernalis_water_temperature_df %>%
   mutate(year = year(date), month = month(date)) %>%
   select(-date) %>%
@@ -105,8 +105,8 @@ vernalis_water_temperature <-
   select(-month) %>%
   as.matrix()
 
-row.names(vernalis_water_temperature) <- month.abb
+row.names(vernalis_temperature) <- month.abb
 
 
-usethis::use_data(vernalis_water_temperature, overwrite = TRUE)
+usethis::use_data(vernalis_temperature, overwrite = TRUE)
 
