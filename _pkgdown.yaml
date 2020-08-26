@@ -17,6 +17,8 @@ reference:
   contents:
   - stream_temperature
   - delta_temperature
+  - vernalis_temperature
+  - prisoners_point_temperature
   - degree_days
   - migratory_temperature_proportion_over_20
   - egg_temperature_effect

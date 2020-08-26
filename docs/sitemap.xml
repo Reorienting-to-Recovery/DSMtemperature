@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//index.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//index.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/degree_days.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/degree_days.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/delta_temperature.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/delta_temperature.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/egg_temperature_effect.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/egg_temperature_effect.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/migratory_temperature_proportion_over_20.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/migratory_temperature_proportion_over_20.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaTemperature//reference/stream_temperature.html</loc>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/prisoners_point_temperature.html</loc>
+  </url>
+  <url>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/stream_temperature.html</loc>
+  </url>
+  <url>
+    <loc>https://CVPIA-OSC.github.io/DSMtemperature//reference/vernalis_temperature.html</loc>
   </url>
 </urlset>

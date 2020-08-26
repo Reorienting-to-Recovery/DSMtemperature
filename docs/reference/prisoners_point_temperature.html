@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Delta Temperature — delta_temperature • DSMtemperature</title>
+<title>Prisoner's Point Water Temperature — prisoners_point_temperature • DSMtemperature</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Delta Temperature — delta_temperature" />
+<meta property="og:title" content="Prisoner's Point Water Temperature — prisoners_point_temperature" />
 
-<meta property="og:description" content="The 1979-2000 rearing temperature in the North and South Delta in °C" />
+<meta property="og:description" content="Monthly water temperature at Prisoner's Point from 1979-2000" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -96,45 +96,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Delta Temperature</h1>
+    <h1>Prisoner's Point Water Temperature</h1>
     
-    <div class="hidden name"><code>delta_temperature.Rd</code></div>
+    <div class="hidden name"><code>prisoners_point_temperature.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The 1979-2000 rearing temperature in the North and South Delta in °C</p>
+    <p>Monthly water temperature at Prisoner's Point from 1979-2000</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>delta_temperature</span></pre>
+    <pre class="usage"><span class='no'>prisoners_point_temperature</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>a 3 dimensional array [12 months, 22 years, 2 deltas]</p>
-    
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p>Data Wrangling and Additional Temperature Modeling: Sadie Gill  <a href='mailto:sgill@flowwest.com'>sgill@flowwest.com</a></p>
+    <p>A matrix 12x21 [12 months by 21 years]</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Water temperature in the Deltas were modeled as a function of air temperature.</p>
-<p>North Delta was modeled using a sample of recent measured water temperature at
-CDEC station <a href='http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=EMM'>EMM</a>
-and NOAA CDO air temperature data from <a href='https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00040232/detail'>Antioch</a>.</p>
-<p>The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.</p>
-<p>South Delta was modeled using a sample of recent measured water temperature at
-CDEC station <a href='http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=MTB'>MTB</a>
-and NOAA CDO air temperature data <a href='https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail'>Stockton Airport</a>.</p>
-<p>The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-below Vernalis.</p>
-<p>Air Temperature Data Source:</p><ul>
-<li><p>NOAA Climate Data Online <a href='https://www.ncdc.noaa.gov/cdo-web/'>(CDO)</a> accessed using the <a href='https://github.com/ropensci/rnoaa'><code>rnoaa</code></a> R package developed by <a href='https://ropensci.org/'>rOpenSci</a>.</p></li>
-</ul>
-    <p>Stream Water Temperature Data Sources:</p><ul>
-<li><p>DWR California Data Exchange Center <a href='http://cdec.water.ca.gov/index.html'>(CDEC)</a> accessed using the <a href='https://github.com/flowwest/cdecretrieve'><code>CDECRetrieve</code></a> R packaged developed by <a href='http://www.flowwest.com/'>FlowWest</a>.</p></li>
-</ul>
+    <p>Temperature at Prisoner's Point was developed as a function of air
+temperature. The most recent water temperature at Rough and Ready Island
+<a href='https://cdec.water.ca.gov/dynamicapp/staSearch?sta_chk=on&amp;sta=RRI&amp;sensor=211&amp;collect=NONE+SPECIFIED&amp;dur=&amp;active=&amp;lon1=&amp;lon2=&amp;lat1=&amp;lat2=&amp;elev1=-5&amp;elev2=99000&amp;nearby=&amp;basin=NONE+SPECIFIED&amp;hydro=NONE+SPECIFIED&amp;county=NONE+SPECIFIED&amp;agency_num=160&amp;display=sta'>CDEC: RRI</a> was used for water temperature. Air temperature was obtained using
+NOAA CDO at <a href='https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail'>Stockton Metropolitan Airport</a>.</p>
     
 
   </div>
@@ -143,8 +127,6 @@ below Vernalis.</p>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#format">Format</a></li>
-
-      <li><a href="#source">Source</a></li>
 
       <li><a href="#details">Details</a></li>
           </ul>
