@@ -1,5 +1,5 @@
-title: cvpiaTemperature
-url: https://flowwest.github.io/cvpiaTemperature/
+title: DSMtemperature
+url: https://CVPIA-OSC.github.io/DSMtemperature/
 template:
   params:
     bootswatch: paper
@@ -30,4 +30,4 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/flowwest/cvpiaTemperature
+    href: https://github.com/CVPIA-OSC/DSMtemperature

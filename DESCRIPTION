@@ -1,14 +1,17 @@
-Package: cvpiaTemperature
+Package: DSMtemperature
 Type: Package
 Title: Modeled Temperature Data for the CVPIA SIT Model
-Version: 3.0.0
-Authors@R: person('Sadie', 'Gill', email = 'sgill@flowwest.com', role = c('cre', 'aut'))
+Version: 0.0.1
+Authors@R: c(
+    person('Sadie', 'Gill', email = 'sgill@flowwest.com', role = c('cre', 'aut'),
+    person('Emanuel', 'Rodriguez', email = 'erodriguez@flowwest.com', role = c('aut')
+    )
 Description: This data package contains modeled temperature data for each of the watersheds 
     within the CVPIA salmon life cycle model.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-URL: https://flowwest.github.io/cvpiaTemperature/
+URL: https://CVPIA-OSC.github.io/DSMtemperature/
 Depends: 
     R (>= 2.10)

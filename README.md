@@ -9,18 +9,18 @@
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("FlowWest/cvpiaTemperature")
+remotes::install_github("CVPIA-OSC/DSMtemperature")
 ```
 
 #### Usage
-This package provides temperature related datasets to the [cvpiaModels](https://flowwest.github.io/cvpiaModels/) package
+This package provides temperature related datasets to the [cvpiaModels](https://CVPIA-OSC.github.io/cvpiaModels/) package
 
 ``` r
 # datasets within the package
-data(package = 'cvpiaTemperature')
+data(package = 'DSMtemperature')
 
 # explore temperature modeling metadata
-?cvpiaTemperature::stream_temperature
+?DSMtemperature::stream_temperature
 ```
 
 #### About the Models
