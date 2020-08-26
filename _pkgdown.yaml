@@ -2,7 +2,7 @@ title: DSMtemperature
 url: https://CVPIA-OSC.github.io/DSMtemperature/
 template:
   params:
-    bootswatch: paper
+    bootswatch: yeti
 
 home:
   links:
