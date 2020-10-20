@@ -32,5 +32,4 @@ Temperature inputs to the CVPIA Decision Support Model (DSM) were developed usin
 The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. Watershed specific methods are detailed on the Reference tab. 
 
    
-<style>.logo{margin-top: 40px;}</style>
-<div class = 'logo'>Data Assembled and Maintained by <a href = "http://www.flowwest.com/" target = "_blank"> <img src="TransLogoTreb.png" width="150px"/></div>
+<div style="margin-top: 40px;">Data Assembled and Maintained by <a href = "http://www.flowwest.com/" target = "_blank"> <img src="man/figures/TransLogoTreb.png" width="150px"/></div>
