@@ -35,7 +35,7 @@ watershed_parameters <- left_join(read_csv('data-raw/mike_wright_temperature_reg
 # rearing lengths will be used and the miles for the creek will be divided by
 # two to obtain the river mile used in the calculations
 watershed_parameters_river_miles <- watershed_parameters %>%
-  left_join(cvpiaHabitat::watershed_lengths) %>%
+  left_join(DSMhabitat::watershed_lengths) %>%
   filter(lifestage == 'rearing', species == 'fr') %>%
   mutate(miles = miles / 2)
 
@@ -78,7 +78,7 @@ antelope_new <- juv_temp_regression %>%
   filter(watershed == 'Antelope Creek') %>%
   mutate(method = 'regression')
 
-antelope_old <- cvpiaTemperature::juv_temp %>%
+antelope_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Cow Creek') %>%
   mutate(method = 'cow creek surrogate')
 
@@ -92,7 +92,7 @@ bear_new <- juv_temp_regression %>%
   filter(watershed == 'Bear Creek') %>%
   mutate(method = 'regression')
 
-bear_old <- cvpiaTemperature::juv_temp %>%
+bear_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Cow Creek') %>%
   mutate(method = 'cow creek surrogate')
 
@@ -106,7 +106,7 @@ elder_new <- juv_temp_regression %>%
   filter(watershed == 'Elder Creek') %>%
   mutate(method = 'regression')
 
-elder_old <- cvpiaTemperature::juv_temp %>%
+elder_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Thomes Creek') %>%
   mutate(method = 'thomes creek surrogate')
 
@@ -120,7 +120,7 @@ paynes_new <- juv_temp_regression %>%
   filter(watershed == 'Paynes Creek') %>%
   mutate(method = 'regression')
 
-paynes_old <- cvpiaTemperature::juv_temp %>%
+paynes_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Cow Creek') %>%
   mutate(method = 'cow creek surrogate')
 
@@ -134,7 +134,7 @@ bear_river_new <- juv_temp_regression %>%
   filter(watershed == 'Bear River') %>%
   mutate(method = 'regression')
 
-bear_river_old <- cvpiaTemperature::juv_temp %>%
+bear_river_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Yuba River') %>%
   mutate(method = 'yuba river surrogate')
 
@@ -149,7 +149,7 @@ feather_river_new <- juv_temp_regression %>%
   filter(watershed == 'Feather River') %>%
   mutate(method = 'regression')
 
-feather_river_old <- cvpiaTemperature::juv_temp %>%
+feather_river_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'American River') %>%
   mutate(method = 'american river surrogate')
 
@@ -163,7 +163,7 @@ calaveras_river_new <- juv_temp_regression %>%
   filter(watershed == 'Calaveras River') %>%
   mutate(method = 'regression')
 
-calaveras_river_old <- cvpiaTemperature::juv_temp %>%
+calaveras_river_old <- DSMtemperature::juv_temp %>%
   filter(watershed == 'Mokelumne River') %>%
   mutate(method = 'mokelumne river surrogate')
 
