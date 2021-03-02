@@ -79,7 +79,9 @@ sac4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023271', datatyp
 
 sac5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023271', datatypeid = 'TAVG',
                      startdate = '1990-01-01', enddate = '1999-12-31', limit = 120, token = token)
-
+#Adds data from 2000
+sac6 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023271', datatypeid = 'TAVG',
+                    startdate = '2000-01-01', enddate = '2000-12-31', limit = 120, token = token)
 
 sac3$data %>%
   bind_rows(sac4$data) %>%
