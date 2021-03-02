@@ -38,6 +38,10 @@ paradise4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00046685', st
 paradise5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00046685', startdate = '1979-01-01',
                          datatypeid = 'TAVG', enddate = '1979-12-31', token = token, limit = 12)
 
+#Add year 2000
+paradise6 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00046685', startdate = '2000-01-01',
+                         datatypeid = 'TAVG', enddate = '2000-12-31', token = token, limit = 120)
+
 
 # really high temps 2002-12, 2003-01, value 708 messing with average
 bic %>%
@@ -112,10 +116,11 @@ confusionMatrix(xtab)
 paradise_air_temp <- paradise3$data %>%
   bind_rows(paradise4$data) %>%
   bind_rows(paradise5$data) %>%
+  bind_rows(paradise6$data) %>%
   mutate(date = as_date(ymd_hms(date))) %>%
   select(date, mean_air_temp_c = value) %>%
   bind_rows(
-    tibble(date = seq.Date(ymd('1979-01-01'), ymd('1999-12-01'), by = 'month'),
+    tibble(date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
            mean_air_temp_c = 0)
   ) %>%
   group_by(date) %>%
