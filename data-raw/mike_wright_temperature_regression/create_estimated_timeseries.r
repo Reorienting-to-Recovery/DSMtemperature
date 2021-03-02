@@ -8,6 +8,11 @@ library(tidyverse)
 library(lubridate)
 library(purrr)
 
+# Add year 2000 to data
+# Need to create an eq_temp.csv that includes 2000
+eq_temp <- read_excel("data-raw/mike_wright_temperature_regression/source/GerberEQTEMP-61to17.xlsx") %>%
+  select("date" = `Months...12`, "monthly_mean_temp_f_air" = `EQTEMP...13`) %>% drop_na()
+
 # inputs: regression parameters and reach lengths (/2 for river mile, assuming
 # reach begins at confluence) for each river, monthly equilibrium air temps.
 
@@ -16,7 +21,9 @@ library(purrr)
 # regression_assignments.csv eq_temp was generated in GerberEQTEMP-61to17.xlsx
 # from a 6-hourly time series in F to a monthly (average) time series, still in
 # F since regression was calibrated using F
-eq_temp <- read_csv('data-raw/mike_wright_temperature_regression/eq_temp.csv')
+
+# Replaced with eq_temps containing 20000
+#  eq_temp <- read_csv('data-raw/mike_wright_temperature_regression/eq_temp.csv')
 
 # regression assignments will allow us to identify which parameters each river
 # should use. these assignments were taken from an email dated 04/26/19, which

@@ -42,7 +42,7 @@ monthly_mean_temperature <- temperatures %>%
   ungroup() %>%
   mutate(cl_date = ymd(paste(year, month, 1, sep = '-'))) %>%
   left_join(cl_dates) %>%
-  filter(between(year(cs_date), 1979, 1999)) %>%
+  filter(between(year(cs_date), 1979, 2000)) %>%
   mutate(date = ymd(paste(year(cs_date), month(cs_date), 1, sep = '-'))) %>%
   select(date, watershed, monthly_mean_temp_c) %>%
   bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
@@ -66,7 +66,7 @@ stream_temperature <- monthly_mean_temperature %>%
   select(-watershed, -order) %>%
   cvpiaFlow::create_model_array()
 
-dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:1999)
+dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:2000)
 
 usethis::use_data(stream_temperature, overwrite = TRUE)
 
