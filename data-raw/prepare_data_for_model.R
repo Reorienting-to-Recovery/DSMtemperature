@@ -42,7 +42,7 @@ monthly_mean_temperature <- temperatures %>%
   ungroup() %>%
   mutate(cl_date = ymd(paste(year, month, 1, sep = '-'))) %>%
   left_join(cl_dates) %>%
-  filter(between(year(cs_date), 1979, 1999)) %>%
+  filter(between(year(cs_date), 1979, 2000)) %>%
   mutate(date = ymd(paste(year(cs_date), month(cs_date), 1, sep = '-'))) %>%
   select(date, watershed, monthly_mean_temp_c) %>%
   bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
@@ -66,7 +66,7 @@ stream_temperature <- monthly_mean_temperature %>%
   select(-watershed, -order) %>%
   cvpiaFlow::create_model_array()
 
-dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:1999)
+dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:2000)
 
 usethis::use_data(stream_temperature, overwrite = TRUE)
 
@@ -113,7 +113,7 @@ hec5q_degree_days <- temperatures %>%
   summarise(degdays = sum(mean_daily_temp_C, na.rm = TRUE)) %>%
   ungroup() %>%
   left_join(cl_years) %>%
-  filter(between(cs_year, 1979, 1999)) %>%
+  filter(between(cs_year, 1979, 2000)) %>%
   mutate(date = ymd(paste(cs_year, month, 1, sep = '-'))) %>%
   select(date, watershed, degdays)
 
@@ -128,8 +128,8 @@ estimated_degree_days <- monthly_mean_temperature %>%
   select(date, watershed, degdays)
 
 zero_degree_days <- tibble(
-  date = rep(seq(as.Date('1979-01-01'), as.Date('1999-12-01'), by = 'month'), each = 6),
-  watershed = rep(no_spawning_regions, times = 252),
+  date = rep(seq(as.Date('1979-01-01'), as.Date('2000-12-01'), by = 'month'), each = 6),
+  watershed = rep(no_spawning_regions, times = 264),
   degdays = 0
 )
 
@@ -142,7 +142,7 @@ degree_days <- zero_degree_days %>%
   select(-watershed, -order) %>%
   cvpiaFlow::create_model_array()
 
-dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:1999)
+dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:2000)
 
 usethis::use_data(degree_days, overwrite = TRUE)
 
