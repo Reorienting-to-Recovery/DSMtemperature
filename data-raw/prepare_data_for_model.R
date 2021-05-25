@@ -166,7 +166,7 @@ names(sr_egg_temperature_effect) <- cvpia_watershed
 
 usethis::use_data(sr_egg_temperature_effect, overwrite = TRUE)
 
-# SR Egg temperature effect -----
+# WR Egg temperature effect -----
 wr_egg_temperature_effect <- rep(0.6466230, 31) # Winter-run value was calibrated.
 names(wr_egg_temperature_effect) <- cvpia_watershed
 
