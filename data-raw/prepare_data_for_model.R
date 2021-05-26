@@ -146,29 +146,22 @@ dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:1999)
 
 usethis::use_data(degree_days, overwrite = TRUE)
 
-# FR Egg temperature effect -----
-fr_egg_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
+# FR and  SR Egg temperature effect -----
+mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
   mutate(mean_temp_effect = (Dry + Wet)/2) %>%
   select(watershed = Watershed.full, mean_temp_effect) %>%
   pull(mean_temp_effect)
 
-names(fr_egg_temperature_effect) <- cvpia_watershed
-
-usethis::use_data(fr_egg_temperature_effect, overwrite = TRUE)
-
-# SR Egg temperature effect -----
-sr_egg_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
-  mutate(mean_temp_effect = (Dry + Wet)/2) %>%
-  select(watershed = Watershed.full, mean_temp_effect) %>%
-  pull(mean_temp_effect)
-
-names(sr_egg_temperature_effect) <- cvpia_watershed
-
-usethis::use_data(sr_egg_temperature_effect, overwrite = TRUE)
 
 # WR Egg temperature effect -----
 wr_egg_temperature_effect <- rep(0.6466230, 31) # Winter-run value was calibrated.
-names(wr_egg_temperature_effect) <- cvpia_watershed
 
-usethis::use_data(wr_egg_temperature_effect, overwrite = TRUE)
+# Combine into dataframe
+egg_temperature_effect <- data.frame(watershed = cvpia_watershed,
+                                     fall_run = mean_temperature_effect,
+                                     spring_run = mean_temperature_effect,
+                                     winter_run = wr_egg_temperature_effect)
+
+
+usethis::use_data(egg_temperature_effect, overwrite = TRUE)
 

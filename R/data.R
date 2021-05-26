@@ -186,29 +186,14 @@
 
 #' Temperature Effect on Egg Mortality
 #' @description The mean estimate of temperature effect used for egg to fry survival
-#' @format  A length 31 vector
+#' @format  A dataframe with 4 columns (\code{watershed}, \code{fall_run}, \code{spring_run}, \code{winter_run}), and 31 rows (a row for each watershed).
 #' @details
-#' Estimated by C. Hammersmark (CBEC ECOengineering Inc.).
-#' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
+#' Fall and Spring Run values are the same and were estimated by C. Hammersmark (CBEC ECOengineering Inc.).
+#' These Fall and Spring Run values were calculated by taking the mean of dry and wet egg temp effects from previous model.
+#' Winter run values were calculated through model calibration.
 #'
-"fr_egg_temperature_effect"
+"egg_temperature_effect"
 
-#' Temperature Effect on Egg Mortality
-#' @description The mean estimate of temperature effect used for egg to fry survival
-#' @format  A length 31 vector
-#' @details
-#' Estimated by C. Hammersmark (CBEC ECOengineering Inc.).
-#' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
-#'
-"sr_egg_temperature_effect"
-
-#' Temperature Effect on Egg Mortality
-#' @description The mean estimate of temperature effect used for egg to fry survival
-#' @format  A length 31 vector
-#' @details
-#' Was calculated through model calibration.
-#'
-"wr_egg_temperature_effect"
 
 #' Vernalis Water Temperature
 #' @description Monthly water temperature at Vernalis from 1979-2000
