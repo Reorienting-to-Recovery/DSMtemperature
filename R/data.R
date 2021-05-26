@@ -188,9 +188,27 @@
 #' @description The mean estimate of temperature effect used for egg to fry survival
 #' @format  A length 31 vector
 #' @details
+#' Estimated by C. Hammersmark (CBEC ECOengineering Inc.).
 #' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
 #'
-"egg_temperature_effect"
+"fr_egg_temperature_effect"
+
+#' Temperature Effect on Egg Mortality
+#' @description The mean estimate of temperature effect used for egg to fry survival
+#' @format  A length 31 vector
+#' @details
+#' Estimated by C. Hammersmark (CBEC ECOengineering Inc.).
+#' Was calculated by taking the mean of dry and wet egg temp effects from previous model.
+#'
+"sr_egg_temperature_effect"
+
+#' Temperature Effect on Egg Mortality
+#' @description The mean estimate of temperature effect used for egg to fry survival
+#' @format  A length 31 vector
+#' @details
+#' Was calculated through model calibration.
+#'
+"wr_egg_temperature_effect"
 
 #' Vernalis Water Temperature
 #' @description Monthly water temperature at Vernalis from 1979-2000
