@@ -5,7 +5,7 @@
 \alias{egg_temperature_effect}
 \title{Temperature Effect on Egg Mortality}
 \format{
-A length 31 vector
+A dataframe with 4 columns (\code{watershed}, \code{fall_run}, \code{spring_run}, \code{winter_run}), and 31 rows (a row for each watershed).
 }
 \usage{
 egg_temperature_effect
@@ -14,6 +14,8 @@ egg_temperature_effect
 The mean estimate of temperature effect used for egg to fry survival
 }
 \details{
-Was calculated by taking the mean of dry and wet egg temp effects from previous model.
+Fall and Spring Run values are the same and were estimated by C. Hammersmark (CBEC ECOengineering Inc.).
+These Fall and Spring Run values were calculated by taking the mean of dry and wet egg temp effects from previous model.
+Winter run values were calculated through model calibration.
 }
 \keyword{datasets}
