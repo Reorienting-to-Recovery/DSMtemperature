@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DSMtemperature</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/CVPIA-OSC/DSMtemperature">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -119,10 +119,12 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A length 31 vector</p>
+    <p>A dataframe with 4 columns (<code>watershed</code>, <code>fall_run</code>, <code>spring_run</code>, <code>winter_run</code>), and 31 rows (a row for each watershed).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Was calculated by taking the mean of dry and wet egg temp effects from previous model.</p>
+    <p>Fall and Spring Run values are the same and were estimated by C. Hammersmark (CBEC ECOengineering Inc.).
+These Fall and Spring Run values were calculated by taking the mean of dry and wet egg temp effects from previous model.
+Winter run values were calculated through model calibration.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -135,7 +137,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sadie Gill, Emanuel Rodriguez.</p>
+  <p>Developed by Sadie Gill, Emanuel Rodriguez, Erin Cain.</p>
 </div>
 
 <div class="pkgdown">
