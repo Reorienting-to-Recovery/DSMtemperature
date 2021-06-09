@@ -1,10 +1,11 @@
 Package: DSMtemperature
 Type: Package
 Title: Modeled Temperature Data for the CVPIA SIT Model
-Version: 0.0.1
+Version: 1.0
 Authors@R: c(
     person('Sadie', 'Gill', email = 'sgill@flowwest.com', role = c('cre', 'aut')),
-    person('Emanuel', 'Rodriguez', email = 'erodriguez@flowwest.com', role = c('aut'))
+    person('Emanuel', 'Rodriguez', email = 'erodriguez@flowwest.com', role = c('aut')),
+    person("Erin", "Cain", email = "ecain@flowwest.com", role = "aut")
     )
 Description: This data package contains modeled temperature data for each of the watersheds 
     within the CVPIA salmon life cycle model.
