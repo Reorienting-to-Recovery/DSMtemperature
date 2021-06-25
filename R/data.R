@@ -117,8 +117,8 @@
 
 #' Delta Temperature
 #'
-#' @description The 1979-2000 rearing temperature in the North and South Delta in °C
-#' @format a 3 dimensional array [12 months, 22 years, 2 deltas]
+#' @description The 1980-2000 rearing temperature in the North and South Delta in °C
+#' @format a 3 dimensional array [12 months, 21 years, 2 deltas]
 #'
 #' @details
 #' Water temperature in the Deltas were modeled as a function of air temperature.

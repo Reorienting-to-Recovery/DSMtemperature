@@ -75,10 +75,11 @@ usethis::use_data(stream_temperature, overwrite = TRUE)
 dn <- read_rds('data-raw/deltas/north_delta_water_temp_c.rds')
 ds <- read_rds('data-raw/deltas/south_delta_water_temp_c.rds')
 
-delta_temperature <- array(NA, dim = c(12, 22, 2))
+delta_temperature <- array(NA, dim = c(12, 21, 2))
 
 delta_temperature[ , , 1] <- dn %>%
   mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980 & year <= 2000) %>%
   select(-date) %>%
   spread(year, `North Delta`) %>%
   select(-month) %>%
@@ -86,6 +87,7 @@ delta_temperature[ , , 1] <- dn %>%
 
 delta_temperature[ , , 2] <- ds %>%
   mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980 & year <= 2000) %>%
   select(-date) %>%
   spread(year, `South Delta`) %>%
   select(-month) %>%
