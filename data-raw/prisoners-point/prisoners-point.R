@@ -94,12 +94,12 @@ ppoint_model_results %>%
 
 # model input is air temp
 model_input <- stockton_air_monthly %>%
-  filter(between(year(date), 1979, 2000))
+  filter(between(year(date), 1980, 2000))
 
 prisoners_point_water_temps <-
   tibble(
     date = model_input$date,
-    water_temp = predict(rri_water_temp_model, newdata = model_input[, "air_temp"]),
+    water_temp = predict(ppoint_temp_model, newdata = model_input[, "air_temp"]),
     location = "Prisoner's Point"
   )
 
@@ -115,7 +115,7 @@ prisoners_point_temperature <- prisoners_point_water_temps %>%
 
 row.names(prisoners_point_temperature) <- month.abb
 
-usethis::use_data(prisoners_point_temperature)
+usethis::use_data(prisoners_point_temperature, overwrite = TRUE)
 
 
 
