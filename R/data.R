@@ -1,5 +1,5 @@
 #' Monthly Mean Water Temperature
-#' @description The 1979-1999 the monthly mean water temperature in °C
+#' @description The 1980-2000 the monthly mean water temperature in °C
 #' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details The following four methods were used to estimate the monthly mean water

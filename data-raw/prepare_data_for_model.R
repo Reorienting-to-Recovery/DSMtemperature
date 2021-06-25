@@ -3,7 +3,7 @@ library(readxl)
 library(lubridate)
 library(stringr)
 
-cvpia_watershed <- cvpiaFlow::watershed_ordering$watershed
+cvpia_watershed <- DSMflow::watershed_ordering$watershed
 # mike wright's notes on temperature
 
 # Here 5q_date is the 6-hourly time stamps on the 5Q output; note that it's on
@@ -42,7 +42,7 @@ monthly_mean_temperature <- temperatures %>%
   ungroup() %>%
   mutate(cl_date = ymd(paste(year, month, 1, sep = '-'))) %>%
   left_join(cl_dates) %>%
-  filter(between(year(cs_date), 1979, 2000)) %>%
+  filter(between(year(cs_date), 1980, 2000)) %>%
   mutate(date = ymd(paste(year(cs_date), month(cs_date), 1, sep = '-'))) %>%
   select(date, watershed, monthly_mean_temp_c) %>%
   bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
@@ -57,16 +57,17 @@ monthly_mean_temperature <- temperatures %>%
   bind_rows(read_rds('data-raw/sutter/sutter_bypass_water_temp_c.rds')) %>%
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
   spread(watershed, monthly_mean_temp_c) %>%
+  filter(year(date) >= 1980 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
 stream_temperature <- monthly_mean_temperature %>%
   spread(date, monthly_mean_temp_c) %>%
-  left_join(cvpiaFlow::watershed_ordering) %>%
+  left_join(DSMflow::watershed_ordering) %>%
   arrange(order) %>%
   select(-watershed, -order) %>%
-  cvpiaFlow::create_model_array()
+  DSMflow::create_model_array()
 
-dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1979:2000)
+dimnames(stream_temperature) <- list(cvpia_watershed, month.abb, 1980:2000)
 
 usethis::use_data(stream_temperature, overwrite = TRUE)
 
@@ -90,7 +91,7 @@ delta_temperature[ , , 2] <- ds %>%
   select(-month) %>%
   as.matrix()
 
-dimnames(delta_temperature) <- list(month.abb, 1979:2000, c('North Delta', 'South Delta'))
+dimnames(delta_temperature) <- list(month.abb, 1980:2000, c('North Delta', 'South Delta'))
 
 usethis::use_data(delta_temperature, overwrite = TRUE)
 
