@@ -94,7 +94,7 @@ ppoint_model_results %>%
 
 # model input is air temp
 model_input <- stockton_air_monthly %>%
-  filter(between(year(date), 1979, 2000))
+  filter(between(year(date), 1980, 2000))
 
 prisoners_point_water_temps <-
   tibble(
