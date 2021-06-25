@@ -83,7 +83,7 @@ sjr_model <- lm(water_temp ~ air_temp, data = water_air_temps)
 summary(sjr_model)
 
 model_input <- stockton_air_monthly %>%
-  filter(year(date) >= 1970, year(date) <= 2000)
+  filter(year(date) >= 1980, year(date) <= 2000)
 
 vernalis_water_temperature_df <- tibble(
   date = model_input$date,

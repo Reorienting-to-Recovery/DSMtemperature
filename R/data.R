@@ -196,7 +196,7 @@
 
 
 #' Vernalis Water Temperature
-#' @description Monthly water temperature at Vernalis from 1979-2000
+#' @description Monthly water temperature at Vernalis from 1980-2000
 #' @format A matrix 12x21 [12 months by 21 years]
 #' @details Temperature at Vernalis was developed as a function of air
 #' temperature. The most recent water temperature at San Joation River (SJR)
