@@ -207,7 +207,7 @@
 
 
 #' Prisoner's Point Water Temperature
-#' @description Monthly water temperature at Prisoner's Point from 1979-2000
+#' @description Monthly water temperature at Prisoner's Point from 1980-2000
 #' @format A matrix 12x21 [12 months by 21 years]
 #' @details Temperature at Prisoner's Point was developed as a function of air
 #' temperature. The most recent water temperature at Rough and Ready Island
