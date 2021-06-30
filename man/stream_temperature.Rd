@@ -17,7 +17,7 @@ a 3 dimensional array [31 watersheds, 12 months, 21 years]
 stream_temperature
 }
 \description{
-The 1979-1999 the monthly mean water temperature in °C
+The 1980-2000 the monthly mean water temperature in °C
 }
 \details{
 The following four methods were used to estimate the monthly mean water

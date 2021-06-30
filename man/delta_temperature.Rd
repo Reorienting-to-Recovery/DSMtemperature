@@ -5,7 +5,7 @@
 \alias{delta_temperature}
 \title{Delta Temperature}
 \format{
-a 3 dimensional array [12 months, 22 years, 2 deltas]
+a 3 dimensional array [12 months, 21 years, 2 deltas]
 }
 \source{
 Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@flowwest.com}
@@ -14,7 +14,7 @@ Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@flo
 delta_temperature
 }
 \description{
-The 1979-2000 rearing temperature in the North and South Delta in °C
+The 1980-2000 rearing temperature in the North and South Delta in °C
 }
 \details{
 Water temperature in the Deltas were modeled as a function of air temperature.

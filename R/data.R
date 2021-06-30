@@ -1,5 +1,5 @@
 #' Monthly Mean Water Temperature
-#' @description The 1979-1999 the monthly mean water temperature in °C
+#' @description The 1980-2000 the monthly mean water temperature in °C
 #' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details The following four methods were used to estimate the monthly mean water
@@ -117,8 +117,8 @@
 
 #' Delta Temperature
 #'
-#' @description The 1979-2000 rearing temperature in the North and South Delta in °C
-#' @format a 3 dimensional array [12 months, 22 years, 2 deltas]
+#' @description The 1980-2000 rearing temperature in the North and South Delta in °C
+#' @format a 3 dimensional array [12 months, 21 years, 2 deltas]
 #'
 #' @details
 #' Water temperature in the Deltas were modeled as a function of air temperature.
@@ -196,7 +196,7 @@
 
 
 #' Vernalis Water Temperature
-#' @description Monthly water temperature at Vernalis from 1979-2000
+#' @description Monthly water temperature at Vernalis from 1980-2000
 #' @format A matrix 12x21 [12 months by 21 years]
 #' @details Temperature at Vernalis was developed as a function of air
 #' temperature. The most recent water temperature at San Joation River (SJR)
@@ -207,7 +207,7 @@
 
 
 #' Prisoner's Point Water Temperature
-#' @description Monthly water temperature at Prisoner's Point from 1979-2000
+#' @description Monthly water temperature at Prisoner's Point from 1980-2000
 #' @format A matrix 12x21 [12 months by 21 years]
 #' @details Temperature at Prisoner's Point was developed as a function of air
 #' temperature. The most recent water temperature at Rough and Ready Island
