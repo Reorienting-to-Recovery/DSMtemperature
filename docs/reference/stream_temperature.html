@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/CVPIA-OSC/DSMtemperature">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,7 +140,7 @@ for the three HEC-5Q runs, i.e. AR_5QCS.dat and AR_5Q-CL.OUT.</p>
 <p><strong>Empirical Data</strong> <br />
 Only the Lower Sacramento had sufficient measured water temperature during
 the period of the CVPIA salmon life cycle model. The few missing values were
-imputed using <a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code><a href='https://pkg.robjhyndman.com/forecast/reference/na.interp.html'>forecast::na.interp</a></code></a>.</p>
+imputed using <a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code>forecast::na.interp</code></a>.</p>
 <p><strong>Double Regression Modeling</strong> <br />
  Data from many temperature gauges was collected from several CVPIA watersheds.
  In these watersheds, a double regression technique was employed to predict water
@@ -157,7 +157,7 @@ a linear model was fitted to estimate water temperature as a function of air tem
 <p>Generally, the air temperature record spans both the period of the CVPIA salmon life cycle model
 and the complete period of record of available water temperature data. In the
 cases where there were missing air temperature values between 1979-1999, we imputed the missing values using
-<a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code><a href='https://pkg.robjhyndman.com/forecast/reference/na.interp.html'>forecast::na.interp</a></code></a>
+<a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code>forecast::na.interp</code></a>
 in order to have a complete air temperature dataset for water temperature estimation.</p>
 <p>Air Temperature Data Source:</p><ul>
 <li><p>NOAA Climate Data Online <a href='https://www.ncdc.noaa.gov/cdo-web/'>(CDO)</a> accessed using the <a href='https://github.com/ropensci/rnoaa'><code>rnoaa</code></a> R package developed by <a href='https://ropensci.org/'>rOpenSci</a>.</p></li>
@@ -196,7 +196,7 @@ in order to have a complete air temperature dataset for water temperature estima
 <li><p><strong>Lower-mid Sacramento River</strong> HEC-5Q model output at KNIGHTS LDG in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS</p></li>
 <li><p><strong>Yolo Bypass</strong> Knights Landing Rotary Screw Trap montly mean water temperature 2004-2018</p></li>
 <li><p><strong>American River</strong> HEC-5Q model output at WILLIAM POND PARK in SSJB_AR_Reference_063015/AR/AR_CL_Temp.dss</p></li>
-<li><p><strong>Lower Sacramento River</strong> Measured mean monthly water temperature from  USGS Gage ID: <a href='https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&amp;site_no=11447650'>11447650</a> with imputed missing values using <a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code><a href='https://pkg.robjhyndman.com/forecast/reference/na.interp.html'>forecast::na.interp</a></code></a></p></li>
+<li><p><strong>Lower Sacramento River</strong> Measured mean monthly water temperature from  USGS Gage ID: <a href='https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&amp;site_no=11447650'>11447650</a> with imputed missing values using <a href='https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp'><code>forecast::na.interp</code></a></p></li>
 <li><p><strong>Calaveras River</strong> Regression method was fitted to data from Deer Creek temperature gauges</p></li>
 <li><p><strong>Cosumnes River</strong> Estimated mean monthly water temperature from a linear model fitted with water temperature data from USGS Gage ID: <a href='https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&amp;site_no=11335000'>11335000</a> and air temperature data from NOAA CDO Station Id: <a href='https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023271/detail'>USW00023271</a></p></li>
 <li><p><strong>Mokelumne River</strong> Estimated mean monthly water temperature from a linear model fitted with water temperature data provided by EBMUD measured near Victor, CA and air temperature data from NOAA CDO Station Id: <a href='https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045032/detail'>USC00045032</a></p></li>
