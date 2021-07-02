@@ -12,7 +12,8 @@ remotes::install_github("CVPIA-OSC/DSMtemperature")
 ```
 
 #### Usage
-This package provides temperature related datasets to the [cvpiaModels](https://CVPIA-OSC.github.io/cvpiaModels/) package
+This package provides temperature related datasets to the [`fallRunDSM,`](https://github.com/CVPIA-OSC/fallRunDSM)
+[`springRunDSM,`](https://github.com/CVPIA-OSC/springRunDSM) [`winterRunDSM,`](https://github.com/CVPIA-OSC/winterRunDSM) and [`latefallRunDSM`](https://github.com/CVPIA-OSC/latefallRunDSM) packages.
 
 ``` r
 # datasets within the package
