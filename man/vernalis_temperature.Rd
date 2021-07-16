@@ -11,7 +11,7 @@ A matrix 12x21 [12 months by 21 years]
 vernalis_temperature
 }
 \description{
-Monthly water temperature at Vernalis from 1980-2000
+Monthly water temperature (°C) at Vernalis from 1980-2000
 }
 \details{
 Temperature at Vernalis was developed as a function of air

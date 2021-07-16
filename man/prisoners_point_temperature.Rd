@@ -11,7 +11,7 @@ A matrix 12x21 [12 months by 21 years]
 prisoners_point_temperature
 }
 \description{
-Monthly water temperature at Prisoner's Point from 1980-2000
+Monthly water temperature (°C) at Prisoner's Point from 1980-2000
 }
 \details{
 Temperature at Prisoner's Point was developed as a function of air
