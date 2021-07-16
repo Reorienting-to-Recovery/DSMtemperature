@@ -108,7 +108,7 @@ prisoners_point_temperature <- prisoners_point_water_temps %>%
   transmute(
     year = year(date),
     month = month(date),
-    water_temp) %>%
+    water_temp = (water_temp - 32) * (5/9)) %>%
   spread(year, water_temp) %>%
   select(-month) %>%
   as.matrix()
