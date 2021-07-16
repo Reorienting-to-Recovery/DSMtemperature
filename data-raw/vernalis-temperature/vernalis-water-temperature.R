@@ -40,10 +40,12 @@ stockton_air_monthly <- stockton_air %>%
 
 
 # Water Temperature --------------------
-cdec_datasets("sjr")
+# cdec_datasets("sjr")
+# sjr_water_temp_data_raw <- cdec_query(station = "sjr", sensor_num = "25", dur_code = "e",
+#            start_date = "2009-01-01")
+# write_rds(sjr_water_temp_data_raw, 'data-raw/vernalis-temperature/sjr_water_temp_data_raw.rds')
 
-sjr_water_temp_data_raw <- cdec_query(station = "sjr", sensor_num = "25", dur_code = "e",
-           start_date = "2009-01-01")
+sjr_water_temp_data_raw <- read_rds('data-raw/vernalis-temperature/sjr_water_temp_data_raw.rds')
 
 sjr_water_temp_data <- sjr_water_temp_data_raw %>%
   mutate(
@@ -99,7 +101,8 @@ vernalis_water_temperature_df %>%
 # restructure for cvpiaModels package
 vernalis_temperature <-
   vernalis_water_temperature_df %>%
-  mutate(year = year(date), month = month(date)) %>%
+  mutate(year = year(date), month = month(date),
+         water_temp = (water_temp - 32) * (5/9)) %>%
   select(-date) %>%
   spread(year, water_temp) %>%
   select(-month) %>%
