@@ -1,8 +1,8 @@
-pandoc: 2.7.3
+pandoc: '2.12'
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-07-16T23:08Z
+last_built: 2021-08-10T16:19Z
 urls:
   reference: https://CVPIA-OSC.github.io/DSMtemperature//reference
   article: https://CVPIA-OSC.github.io/DSMtemperature//articles
