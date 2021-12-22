@@ -96,7 +96,7 @@
 #' Degree Days
 #'
 #' @description The monthly accumulated degree days °C
-#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
+#' @format a 3 dimensional array [31 watersheds, 12 months, 22 years]
 #'
 #' @details
 #' For watersheds with HEC-5Q modeled results, the calculation for degree days
