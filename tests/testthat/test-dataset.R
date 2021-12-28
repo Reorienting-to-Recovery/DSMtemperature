@@ -20,7 +20,6 @@ test_that("Temperature dimensions", {
   expect_equal(dim(prisoners_point_temperature), c(12, 21))
   expect_equal(dim(stream_temperature), c(31, 12, 21))
   expect_equal(dim(vernalis_temperature), c(12, 21))
-#Should test for class types?
   })
 
 #Temperature watershed labels --------------------------------------------------
@@ -63,7 +62,6 @@ test_that("The delta temperature values are in celsius", {
   expect_true(all(delta_temperature_df['s_dlt_delta_temperature'] < max_river_celsius))
 })
 
-#fix null values for 1980 stream temperature
 #DSMtemperature::stream_temperature---------------------------------------------
 stream_temperature_df <- map_df(c(1:21), function(i){
   stream_temperature[, , i] %>%
