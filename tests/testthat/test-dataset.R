@@ -65,10 +65,10 @@ test_that("The delta temperature values are in celsius", {
 
 #fix null values for 1980 stream temperature
 #DSMtemperature::stream_temperature---------------------------------------------
-stream_temperature_df <- map_df(c(0:21), function(i){
+stream_temperature_df <- map_df(c(1:21), function(i){
   stream_temperature[, , i] %>%
     as.data.frame() %>%
-    mutate(year = i+1980) %>%
+    mutate(year = i+1979) %>%
     rownames_to_column(var = 'location')})
 
 stream_temperature_df <- stream_temperature_df %>%
