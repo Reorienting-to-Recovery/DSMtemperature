@@ -5,7 +5,7 @@
 \alias{degree_days}
 \title{Degree Days}
 \format{
-a 3 dimensional array [31 watersheds, 12 months, 21 years]
+a 3 dimensional array [31 watersheds, 12 months, 22 years]
 }
 \source{
 \itemize{
