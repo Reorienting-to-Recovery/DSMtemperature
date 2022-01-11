@@ -62,6 +62,11 @@ test_that("The delta temperature values are in celsius", {
   expect_true(all(delta_temperature_df['s_dlt_delta_temperature'] < max_river_celsius))
 })
 
+min_river_celsius <- -10
+test_that("The delta temperature values are in celsius", {
+  expect_true(all(delta_temperature_df['n_dlt_delta_temperature'] > min_river_celsius))
+  expect_true(all(delta_temperature_df['s_dlt_delta_temperature'] > min_river_celsius))
+})
 #DSMtemperature::stream_temperature---------------------------------------------
 stream_temperature_df <- map_df(c(1:21), function(i){
   stream_temperature[, , i] %>%
