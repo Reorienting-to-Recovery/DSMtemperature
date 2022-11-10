@@ -158,7 +158,7 @@ stan_pred_water_temp <- predict(stan_model, stanislaus_air_temp_c)
 
 stan_water_temp_c <- tibble(
   date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
-  watershed = 'Butte Creek',
+  watershed = 'Stanislaus River',
   monthly_mean_temp_c = stan_pred_water_temp)
 
 stan_water_temp_c %>%
