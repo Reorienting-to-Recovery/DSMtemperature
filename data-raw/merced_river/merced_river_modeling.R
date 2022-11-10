@@ -52,7 +52,6 @@ merced_air <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
 
 
 merced_air_temp <- merced_air$data %>%
-  bind_rows(merced_air$data) %>%
   mutate(date = as_date(ymd_hms(date))) %>%
   select(date, mean_air_temp_c = value) %>% glimpse()
 
@@ -152,7 +151,7 @@ merced_pred_water_temp <- predict(merced_model, merced_air_temp_c)
 
 merced_water_temp_c <- tibble(
   date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
-  watershed = 'Butte Creek',
+  watershed = 'Merced River',
   monthly_mean_temp_c = merced_pred_water_temp)
 
 merced_water_temp_c %>%
