@@ -1,0 +1,164 @@
+library(tidyverse)
+library(lubridate)
+library(dataRetrieval)
+library(CDECRetrieve)
+library(forcats)
+library(forecast)
+library(rnoaa)
+library(caret)
+
+# Pull water temperature data --------------------------------------------------
+
+# CDEC Gage
+# CRS - tuolumne river at cressy
+# 2000 to present
+mod <- CDECRetrieve::cdec_query(station = 'MOD', sensor_num = '25', dur_code = 'D',
+                                start_date = '2000-09-16', end_date = '2022-09-30')
+
+tuolumne_water_temp <- mod %>%
+  select(datetime, temp_f = parameter_value) %>%
+  filter(between(temp_f, 10, 100)) %>%
+  group_by(year = year(datetime), month = month(datetime)) %>%
+  summarise(mean_water_temp_f = mean(temp_f, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(date = ymd(paste(year, month, '01', sep = '-')),
+         mean_water_temp_c = (mean_water_temp_f - 32) * 5 / 9) %>%
+  select(date, mean_water_temp_c) %>%
+  filter(mean_water_temp_c > 4, mean_water_temp_c < 28)
+
+# looks like we will have to stick with 2000 - 2010
+tuolumne_water_temp %>%
+  ggplot(aes(x = date, y = mean_water_temp_c)) +
+  geom_col()
+
+ts_tuolumne <- ts(tuolumne_water_temp$mean_water_temp_c, start = c(2000, 01), end = c(2020, 9), frequency = 12)
+
+na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
+  forecast::autolayer(ts_tuolumne, series = 'Original')
+
+
+# air temperature data near stream ---------------------------------------------
+token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
+
+# Currently using
+# Modesto airport used because new melones stops collecting data in early 2000 no
+# overlap with stream gage data
+
+# model training data 1/2000-12/2021
+modesto_airport1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                               startdate = '2001-01-01', datatypeid = 'TAVG',
+                               enddate = '2010-12-31', token = token, limit = 120)
+modesto_airport2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                               startdate = '2011-01-01', datatypeid = 'TAVG',
+                               enddate = '2020-12-31', token = token, limit = 120)
+
+
+tuolumne_air_temp <- modesto_airport1$data %>%
+  bind_rows(modesto_airport2$data) %>%
+  mutate(date = as_date(ymd_hms(date))) %>%
+  select(date, mean_air_temp_c = value) %>% glimpse()
+
+
+tuolumne <- tuolumne_water_temp %>%
+  left_join(tuolumne_air_temp) %>%
+  filter(!is.na(mean_air_temp_c))
+
+tuolumne %>%
+  ggplot(aes(x = mean_air_temp_c, mean_water_temp_c)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  geom_hline(yintercept = 18, alpha = .3) +
+  geom_hline(yintercept = 20, alpha = .3)
+
+tuolumne_model <- lm(mean_water_temp_c ~ mean_air_temp_c, data = tuolumne)
+summary(tuolumne_model)
+
+tuolumne_model$coefficients
+# air temp thresholds
+y <- c(18, 20)
+tuolumne_temp_thresholds <- (y - tuolumne_model$coefficients[[1]]) / tuolumne_model$coefficients[[2]]
+
+pred <- broom::augment(tuolumne_model) %>% pull(.fitted)
+truth <- tuolumne$mean_water_temp_c
+xtab <- table(pred > 18, truth > 18)
+xtab <- table(pred > 20, truth > 20)
+confusionMatrix(xtab)
+
+# Sticking with modesto airport for now, may want to update later
+tuolumne_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+                           startdate = '1979-01-01', datatypeid = 'TAVG',
+                           enddate = '1979-12-31', token = token, limit = 12)
+
+tuolumne_air3 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+                           startdate = '1980-01-01', datatypeid = 'TAVG',
+                           enddate = '1989-12-31', token = token, limit = 120)
+
+tuolumne_air4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+                           startdate = '1990-01-01', datatypeid = 'TAVG',
+                           enddate = '1999-12-31', token = token, limit = 120)
+
+# Add year 2000
+tuolumne_air5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+                           startdate = '2000-01-01', datatypeid = 'TAVG',
+                           enddate = '2000-12-31', token = token, limit = 120)
+
+tuolumne_air2$data %>%
+  bind_rows(tuolumne_air3$data) %>%
+  bind_rows(tuolumne_air4$data) %>%
+  bind_rows(tuolumne_air5$data) %>%
+  mutate(date = ymd_hms(date), year = year(date),
+         month = factor(month.abb[month(date)],
+                        levels = c(month.abb[10:12], month.abb[1:9]), ordered = TRUE)) %>%
+  select(date, month, mean_air_temp_c = value) %>%
+  ggplot(aes(x = month, y = mean_air_temp_c)) +
+  geom_boxplot() +
+  geom_point(alpha = .5, pch = 1, size = 1) +
+  labs(y = 'monthly average air temperature (°C)') +
+  theme_minimal()
+
+tuolumne_air_temp <- tuolumne_air2$data %>%
+  bind_rows(tuolumne_air3$data) %>%
+  bind_rows(tuolumne_air4$data) %>%
+  bind_rows(tuolumne_air5$data) %>%
+  mutate(date = as_date(ymd_hms(date))) %>%
+  select(date, mean_air_temp_c = value) %>%
+  bind_rows(
+    tibble(date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
+           mean_air_temp_c = 0)
+  ) %>%
+  group_by(date) %>%
+  summarise(mean_air_temp_c = max(mean_air_temp_c)) %>%
+  ungroup() %>%
+  mutate(mean_air_temp_c = ifelse(mean_air_temp_c == 0, NA, mean_air_temp_c))
+
+
+ts_tuolumne <- ts(tuolumne_air_temp$mean_air_temp_c, start = c(1979, 1), end = c(2000, 12), frequency = 12)
+ts_tuolumne
+
+na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
+  forecast::autolayer(ts_tuolumne, series = 'Original')
+
+tuolumne_air_temp_c <- tibble(
+  date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
+  mean_air_temp_c = as.numeric(na.interp(ts_tuolumne)))
+
+
+modesto_air_temp %>%
+  ggplot(aes(x = date, y = mean_air_temp_c)) +
+  geom_col(fill = 'darkgoldenrod2') +
+  geom_col(data = tuolumne_air_temp_c, aes(x = date, y = mean_air_temp_c)) +
+  theme_minimal() +
+  labs(y = 'monthly mean air temperature (°C)')
+
+tuolumne_pred_water_temp <- predict(tuolumne_model, tuolumne_air_temp_c)
+
+tuolumne_water_temp_c <- tibble(
+  date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
+  watershed = 'Tuolumne River',
+  monthly_mean_temp_c = tuolumne_pred_water_temp)
+
+tuolumne_water_temp_c %>%
+  ggplot(aes(x = date)) +
+  geom_col(aes(y = monthly_mean_temp_c))
+
+write_rds(tuolumne_water_temp_c, 'data-raw/tuolumne_river/tuolumne_river_water_temp_c.rds')
