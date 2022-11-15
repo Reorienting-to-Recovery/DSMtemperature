@@ -143,7 +143,7 @@ tuolumne_air_temp_c <- tibble(
   mean_air_temp_c = as.numeric(na.interp(ts_tuolumne)))
 
 
-modesto_air_temp %>%
+tuolumne_air_temp %>%
   ggplot(aes(x = date, y = mean_air_temp_c)) +
   geom_col(fill = 'darkgoldenrod2') +
   geom_col(data = tuolumne_air_temp_c, aes(x = date, y = mean_air_temp_c)) +
