@@ -10,7 +10,7 @@ library(caret)
 # Pull water temperature data --------------------------------------------------
 
 # CDEC Gage
-# CRS - tuolumne river at cressy
+# MOD - tuolumne river at modesto
 # 2000 to present
 mod <- CDECRetrieve::cdec_query(station = 'MOD', sensor_num = '25', dur_code = 'D',
                                 start_date = '2000-09-16', end_date = '2022-09-30')
