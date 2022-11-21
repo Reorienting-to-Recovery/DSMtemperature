@@ -26,7 +26,6 @@ tuolumne_water_temp <- mod %>%
   select(date, mean_water_temp_c) %>%
   filter(mean_water_temp_c > 4, mean_water_temp_c < 28)
 
-# looks like we will have to stick with 2000 - 2010
 tuolumne_water_temp %>%
   ggplot(aes(x = date, y = mean_water_temp_c)) +
   geom_col()
@@ -35,6 +34,33 @@ ts_tuolumne <- ts(tuolumne_water_temp$mean_water_temp_c, start = c(2000, 01), en
 
 na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
   forecast::autolayer(ts_tuolumne, series = 'Original')
+
+
+# water temp test new gage
+# TSB is no better
+# tsb <- CDECRetrieve::cdec_query(station = 'TSB', sensor_num = '25', dur_code = 'H',
+#                                 start_date = '2000-09-16', end_date = '2022-09-30')
+#
+# tuolumne_water_temp <- tsb %>%
+#   select(datetime, temp_f = parameter_value) %>%
+#   filter(between(temp_f, 10, 100)) %>%
+#   group_by(year = year(datetime), month = month(datetime)) %>%
+#   summarise(mean_water_temp_f = mean(temp_f, na.rm = TRUE)) %>%
+#   ungroup() %>%
+#   mutate(date = ymd(paste(year, month, '01', sep = '-')),
+#          mean_water_temp_c = (mean_water_temp_f - 32) * 5 / 9) %>%
+#   select(date, mean_water_temp_c) %>%
+#   filter(mean_water_temp_c > 4, mean_water_temp_c < 28)
+#
+# tuolumne_water_temp %>%
+#   ggplot(aes(x = date, y = mean_water_temp_c)) +
+#   geom_col()
+#
+# ts_tuolumne <- ts(tuolumne_water_temp$mean_water_temp_c, start = c(2000, 01), end = c(2020, 9), frequency = 12)
+#
+# na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
+#   forecast::autolayer(ts_tuolumne, series = 'Original')
+
 
 
 # air temperature data near stream ---------------------------------------------
@@ -51,7 +77,6 @@ modesto_airport1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW000232
 modesto_airport2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
                                startdate = '2011-01-01', datatypeid = 'TAVG',
                                enddate = '2020-12-31', token = token, limit = 120)
-
 
 tuolumne_air_temp <- modesto_airport1$data %>%
   bind_rows(modesto_airport2$data) %>%
@@ -84,21 +109,59 @@ xtab <- table(pred > 18, truth > 18)
 xtab <- table(pred > 20, truth > 20)
 confusionMatrix(xtab)
 
+# Tracy air gage is no better
+# tracy_test_gage_1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00048999',
+#                                  startdate = '2001-01-01', datatypeid = 'TAVG',
+#                                  enddate = '2010-12-31', token = token, limit = 120)
+# tracy_test_gage_2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00048999',
+#                                  startdate = '2011-01-01', datatypeid = 'TAVG',
+#                                  enddate = '2020-12-31', token = token, limit = 120)
+#
+# tracy_air_temp <- tracy_test_gage_1$data %>%
+#   bind_rows(tracy_test_gage_2$data) %>%
+#   mutate(date = as_date(ymd_hms(date))) %>%
+#   select(date, mean_air_temp_c = value) %>% glimpse()
+#
+# tuolumne_test <- tuolumne_water_temp %>%
+#   left_join(tracy_air_temp) %>%
+#   filter(!is.na(mean_air_temp_c))
+#
+# tuolumne_test %>%
+#   ggplot(aes(x = mean_air_temp_c, mean_water_temp_c)) +
+#   geom_point() +
+#   geom_smooth(method = 'lm', se = FALSE) +
+#   geom_hline(yintercept = 18, alpha = .3) +
+#   geom_hline(yintercept = 20, alpha = .3)
+#
+# tuolumne_model_test <- lm(mean_water_temp_c ~ mean_air_temp_c, data = tuolumne_test)
+# summary(tuolumne_model_test)
+#
+# tuolumne_model$coefficients
+# # air temp thresholds
+# y <- c(18, 20)
+# tuolumne_temp_thresholds <- (y - tuolumne_model$coefficients[[1]]) / tuolumne_model$coefficients[[2]]
+#
+# pred <- broom::augment(tuolumne_model) %>% pull(.fitted)
+# truth <- tuolumne$mean_water_temp_c
+# xtab <- table(pred > 18, truth > 18)
+# xtab <- table(pred > 20, truth > 20)
+# confusionMatrix(xtab)
+
 # Sticking with modesto airport for now, may want to update later
-tuolumne_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+tuolumne_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
                            startdate = '1979-01-01', datatypeid = 'TAVG',
                            enddate = '1979-12-31', token = token, limit = 12)
 
-tuolumne_air3 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+tuolumne_air3 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
                            startdate = '1980-01-01', datatypeid = 'TAVG',
                            enddate = '1989-12-31', token = token, limit = 120)
 
-tuolumne_air4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+tuolumne_air4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
                            startdate = '1990-01-01', datatypeid = 'TAVG',
                            enddate = '1999-12-31', token = token, limit = 120)
 
 # Add year 2000
-tuolumne_air5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
+tuolumne_air5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
                            startdate = '2000-01-01', datatypeid = 'TAVG',
                            enddate = '2000-12-31', token = token, limit = 120)
 
