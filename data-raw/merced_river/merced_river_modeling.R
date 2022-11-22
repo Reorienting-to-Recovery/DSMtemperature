@@ -42,8 +42,7 @@ forecast::autolayer(ts_merced, series = 'Original')
 token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
 
 # Currently using
-# Modesto airport used because new melones stops collecting data in early 2000 no
-# overlap with stream gage data
+# Merced california gage
 
 # model training data 1/2011-12/2021
 merced_air <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
