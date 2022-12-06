@@ -39,11 +39,22 @@ forecast::autolayer(ts_merced, series = 'Original')
 
 
 # air temperature data near stream ---------------------------------------------
-token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
+
+# try CIMIS 148 air temps ---------------------------------------------------
+# cimis_148 <- read_csv("~/Downloads/cimis_148.csv") |>
+#   janitor::clean_names() |>
+#   group_by(year(date), month(date)) |>
+#   rename(year = `year(date)`, month = `month(date)`) |>
+#   summarise(mean_air_temp_c = mean(max_air_temp_c)) |>
+#   mutate(date = ymd(paste(year, month, '01', sep = '-'))) |>
+#   ungroup() |>
+#   select(date, mean_air_temp_c) |> glimpse()
+#
+# cimis_148 |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
 
 # Currently using
-# Merced california gage
-
+# Merced california gage - better Rsquared than CIMIS 148
+token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
 # model training data 1/2011-12/2021
 merced_air <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
                                startdate = '2000-01-02', datatypeid = 'TAVG',
@@ -53,7 +64,6 @@ merced_air <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
 merced_air_temp <- merced_air$data %>%
   mutate(date = as_date(ymd_hms(date))) %>%
   select(date, mean_air_temp_c = value) %>% glimpse()
-
 
 merced <- merced_water_temp %>%
   left_join(merced_air_temp) %>%
@@ -80,7 +90,6 @@ xtab <- table(pred > 18, truth > 18)
 xtab <- table(pred > 20, truth > 20)
 confusionMatrix(xtab)
 
-# Sticking with modesto airport for now, may want to update later
 merced_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00045532',
                            startdate = '1979-01-01', datatypeid = 'TAVG',
                            enddate = '1979-12-31', token = token, limit = 12)
@@ -138,8 +147,7 @@ merced_air_temp_c <- tibble(
   date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
   mean_air_temp_c = as.numeric(na.interp(ts_merced)))
 
-
-modesto_air_temp %>%
+merced_air_temp %>%
   ggplot(aes(x = date, y = mean_air_temp_c)) +
   geom_col(fill = 'darkgoldenrod2') +
   geom_col(data = merced_air_temp_c, aes(x = date, y = mean_air_temp_c)) +
