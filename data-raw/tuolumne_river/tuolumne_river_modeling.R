@@ -7,6 +7,9 @@ library(forecast)
 library(rnoaa)
 library(caret)
 
+# This uses CDEC MOD water temperature data and NOAA NCDC Modesto Airport air temperature data.
+# Alternative sources of data are noted in comments and code associated w/ alternative sources is commented out.
+
 # Pull water temperature data --------------------------------------------------
 
 # CDEC Gage
@@ -67,98 +70,25 @@ na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
 #   forecast::autolayer(ts_tuolumne, series = 'Original')
 
 
-# cimis water temp --------------------------------------------------------
-# these are from the California irigation Management Information System (cimis.water.ca.gov)
+# Alternative air temperature sources --------------------------------------------------------
+# CIMIS
+# these are from the California irrigation Management Information System (cimis.water.ca.gov)
 # map with stations can be found here: https://cimis.water.ca.gov/Stations.aspx
 # one anomaly to note: Station 194 on the map renamed in download process to Station 77.
 # (on the map, station 77 is north). The data I queried and titled "cimis_77" should be
 # from Station 194 on the map.
-cimis_71 <- readxl::read_xlsx("~/Downloads/CIMIS_Station71_dat.xlsx") |>
-  janitor::clean_names() |> select(date = month_year,
-                                   mean_air_temp_f = avg_air_temp_f) |>
-  mutate(mean_air_temp_c = (mean_air_temp_f - 32) * 5 / 9)
 
-cimis_77 <- readxl::read_xlsx("~/Downloads/CIMIS_Station77_dat.xlsx") |>
-  janitor::clean_names() |> select(date = month_year,
-                                   mean_air_temp_f = avg_air_temp_f) |>
-  mutate(mean_air_temp_c = (mean_air_temp_f - 32) * 5 / 9)
+# these data only go back to 1999 (cimis 71) and 2000 (cimis 77), so they are
+# not useful
 
-cimis_71 |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
-cimis_77 |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
-
-# UCANR data ------------------------------------------------------------
-# this is data from the UCANR statewide integrated pest management program
+# UCANR
+# these data are from the UCANR statewide integrated pest management program
 # which lists several stations with air temperature data: http://ipm.ucanr.edu/WEATHER/wxactstnames.html
 # "waterford" station is at 37.38N, 120.45W (near UC Merced)
 
-waterford <- read_csv("~/Downloads/waterford_data.csv") |>
-  janitor::clean_names() |> mutate(date = ymd(date)) |>
-  group_by(year(date), month(date)) |>
-  rename(year = `year(date)`, month = `month(date)`) |>
-  summarise(mean_air_temp_c = mean(air_max)) |>
-  ungroup() |>
-  mutate(date = ymd(paste(year, month, '01', sep = '-'))) |>
-  select(date, mean_air_temp_c) |> glimpse()
-waterford |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
+# these only go back to 1981 so are not useful
 
-# air temperature data near stream ---------------------------------------------
-token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
-
-# Currently using
-# Modesto airport used because new melones stops collecting data in early 2000 no
-# overlap with stream gage data
-
-# model training data 1/2000-12/2021
-modesto_airport1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-                               startdate = '2001-01-01', datatypeid = 'TAVG',
-                               enddate = '2010-12-31', token = token, limit = 120)
-modesto_airport2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-                               startdate = '2011-01-01', datatypeid = 'TAVG',
-                               enddate = '2020-12-31', token = token, limit = 120)
-
-modesto_air_temp <- modesto_airport1$data %>%
-  bind_rows(modesto_airport2$data) %>%
-  mutate(date = as_date(ymd_hms(date))) %>%
-  select(date, mean_air_temp_c = value) %>% glimpse()
-modesto_air_temp |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
-
-# which air temperature is best?
-# Modesto water temperature and Waterford air temperature have highest Rsquared
-
-# modesto airport (2001-2020)
-# tuolumne_air_temp <- modesto_air_temp
-# cimis
-# tuolumne_air_temp <- cimis_71 # 2000-2022
-# tuolumne_air_temp <- cimis_77 # 2000-2022
-# UCANR
-tuolumne_air_temp <- waterford # 2000-2022
-
-tuolumne <- tuolumne_water_temp %>%
-  left_join(tuolumne_air_temp) %>%
-  filter(!is.na(mean_air_temp_c))
-
-tuolumne %>%
-  ggplot(aes(x = mean_air_temp_c, mean_water_temp_c)) +
-  geom_point() +
-  geom_smooth(method = 'lm', se = FALSE) +
-  geom_hline(yintercept = 18, alpha = .3) +
-  geom_hline(yintercept = 20, alpha = .3)
-
-tuolumne_model <- lm(mean_water_temp_c ~ mean_air_temp_c, data = tuolumne)
-summary(tuolumne_model)
-
-tuolumne_model$coefficients
-# air temp thresholds
-y <- c(18, 20)
-tuolumne_temp_thresholds <- (y - tuolumne_model$coefficients[[1]]) / tuolumne_model$coefficients[[2]]
-
-pred <- broom::augment(tuolumne_model) %>% pull(.fitted)
-truth <- tuolumne$mean_water_temp_c
-xtab <- table(pred > 18, truth > 18)
-xtab <- table(pred > 20, truth > 20)
-confusionMatrix(xtab)
-
-# Tracy air gage is no better
+# NOAA NCDC Tracy Air Gage
 # tracy_test_gage_1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USC00048999',
 #                                  startdate = '2001-01-01', datatypeid = 'TAVG',
 #                                  enddate = '2010-12-31', token = token, limit = 120)
@@ -196,82 +126,104 @@ confusionMatrix(xtab)
 # xtab <- table(pred > 20, truth > 20)
 # confusionMatrix(xtab)
 
-# Waterford air temp data
-tuolumne_air <- read_csv("~/Downloads/waterford_full.csv") |>
-  janitor::clean_names() |> mutate(date = ymd(date)) |>
-  group_by(year(date), month(date)) |>
-  rename(year = `year(date)`, month = `month(date)`) |>
-  summarise(mean_air_temp_c = mean(air_max)) |>
-  ungroup() |>
-  mutate(date = ymd(paste(year, month, '01', sep = '-'))) |>
-  select(date, mean_air_temp_c)
 
-tuolumne_air |> mutate(month = factor(month.abb[month(date)],
-                                      levels = c(month.abb[10:12], month.abb[1:9]), ordered = TRUE)) |>
-  select(date, month, mean_air_temp_c) |>
+# air temperature data near stream ---------------------------------------------
+token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
+
+# Currently using
+# Modesto airport used because new melones stops collecting data in early 2000 no
+# overlap with stream gage data
+
+# model training data 1/2000-12/2021
+modesto_airport1 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                               startdate = '2001-01-01', datatypeid = 'TAVG',
+                               enddate = '2010-12-31', token = token, limit = 120)
+modesto_airport2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                               startdate = '2011-01-01', datatypeid = 'TAVG',
+                               enddate = '2020-12-31', token = token, limit = 120)
+
+modesto_air_temp <- modesto_airport1$data %>%
+  bind_rows(modesto_airport2$data) %>%
+  mutate(date = as_date(ymd_hms(date))) %>%
+  select(date, mean_air_temp_c = value) %>% glimpse()
+modesto_air_temp |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
+
+tuolumne_air_temp <- modesto_air_temp
+
+
+# linear regression model -------------------------------------------------
+
+tuolumne <- tuolumne_water_temp %>%
+  left_join(tuolumne_air_temp) %>%
+  filter(!is.na(mean_air_temp_c))
+
+tuolumne %>%
+  ggplot(aes(x = mean_air_temp_c, mean_water_temp_c)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  geom_hline(yintercept = 18, alpha = .3) +
+  geom_hline(yintercept = 20, alpha = .3)
+
+tuolumne_model <- lm(mean_water_temp_c ~ mean_air_temp_c, data = tuolumne)
+summary(tuolumne_model)
+
+tuolumne_model$coefficients
+# air temp thresholds
+y <- c(18, 20)
+tuolumne_temp_thresholds <- (y - tuolumne_model$coefficients[[1]]) / tuolumne_model$coefficients[[2]]
+
+pred <- broom::augment(tuolumne_model) %>% pull(.fitted)
+truth <- tuolumne$mean_water_temp_c
+xtab <- table(pred > 18, truth > 18)
+xtab <- table(pred > 20, truth > 20)
+confusionMatrix(xtab)
+
+# Modesto airport code
+tuolumne_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                           startdate = '1979-01-01', datatypeid = 'TAVG',
+                           enddate = '1979-12-31', token = token, limit = 12)
+
+tuolumne_air3 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                           startdate = '1980-01-01', datatypeid = 'TAVG',
+                           enddate = '1989-12-31', token = token, limit = 120)
+
+tuolumne_air4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                           startdate = '1990-01-01', datatypeid = 'TAVG',
+                           enddate = '1999-12-31', token = token, limit = 120)
+
+# Add year 2000
+tuolumne_air5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
+                           startdate = '2000-01-01', datatypeid = 'TAVG',
+                           enddate = '2000-12-31', token = token, limit = 120)
+
+tuolumne_air2$data %>%
+  bind_rows(tuolumne_air3$data) %>%
+  bind_rows(tuolumne_air4$data) %>%
+  bind_rows(tuolumne_air5$data) %>%
+  mutate(date = ymd_hms(date), year = year(date),
+         month = factor(month.abb[month(date)],
+                        levels = c(month.abb[10:12], month.abb[1:9]), ordered = TRUE)) %>%
+  select(date, month, mean_air_temp_c = value) %>%
   ggplot(aes(x = month, y = mean_air_temp_c)) +
   geom_boxplot() +
   geom_point(alpha = .5, pch = 1, size = 1) +
   labs(y = 'monthly average air temperature (°C)') +
   theme_minimal()
 
-tuolumne_air_temp <- tuolumne_air |>
+tuolumne_air_temp <- tuolumne_air2$data %>%
+  bind_rows(tuolumne_air3$data) %>%
+  bind_rows(tuolumne_air4$data) %>%
+  bind_rows(tuolumne_air5$data) %>%
+  mutate(date = as_date(ymd_hms(date))) %>%
+  select(date, mean_air_temp_c = value) %>%
   bind_rows(
-    tibble(date = seq.Date(ymd('1981-01-01'), ymd('2000-12-01'), by = 'month'),
+    tibble(date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
            mean_air_temp_c = 0)
   ) %>%
   group_by(date) %>%
   summarise(mean_air_temp_c = max(mean_air_temp_c)) %>%
   ungroup() %>%
   mutate(mean_air_temp_c = ifelse(mean_air_temp_c == 0, NA, mean_air_temp_c))
-
-
-# Modesto airport code - using Waterford (above) instead
-# tuolumne_air2 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-#                            startdate = '1979-01-01', datatypeid = 'TAVG',
-#                            enddate = '1979-12-31', token = token, limit = 12)
-#
-# tuolumne_air3 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-#                            startdate = '1980-01-01', datatypeid = 'TAVG',
-#                            enddate = '1989-12-31', token = token, limit = 120)
-#
-# tuolumne_air4 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-#                            startdate = '1990-01-01', datatypeid = 'TAVG',
-#                            enddate = '1999-12-31', token = token, limit = 120)
-#
-# # Add year 2000
-# tuolumne_air5 <- rnoaa::ncdc(datasetid = 'GSOM', stationid = 'GHCND:USW00023258',
-#                            startdate = '2000-01-01', datatypeid = 'TAVG',
-#                            enddate = '2000-12-31', token = token, limit = 120)
-#
-# tuolumne_air2$data %>%
-#   bind_rows(tuolumne_air3$data) %>%
-#   bind_rows(tuolumne_air4$data) %>%
-#   bind_rows(tuolumne_air5$data) %>%
-#   mutate(date = ymd_hms(date), year = year(date),
-#          month = factor(month.abb[month(date)],
-#                         levels = c(month.abb[10:12], month.abb[1:9]), ordered = TRUE)) %>%
-#   select(date, month, mean_air_temp_c = value) %>%
-#   ggplot(aes(x = month, y = mean_air_temp_c)) +
-#   geom_boxplot() +
-#   geom_point(alpha = .5, pch = 1, size = 1) +
-#   labs(y = 'monthly average air temperature (°C)') +
-#   theme_minimal()
-#
-# tuolumne_air_temp <- tuolumne_air2$data %>%
-#   bind_rows(tuolumne_air3$data) %>%
-#   bind_rows(tuolumne_air4$data) %>%
-#   bind_rows(tuolumne_air5$data) %>%
-#   mutate(date = as_date(ymd_hms(date))) %>%
-#   select(date, mean_air_temp_c = value) %>%
-#   bind_rows(
-#     tibble(date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
-#            mean_air_temp_c = 0)
-#   ) %>%
-#   group_by(date) %>%
-#   summarise(mean_air_temp_c = max(mean_air_temp_c)) %>%
-#   ungroup() %>%
-#   mutate(mean_air_temp_c = ifelse(mean_air_temp_c == 0, NA, mean_air_temp_c))
 
 
 ts_tuolumne <- ts(tuolumne_air_temp$mean_air_temp_c, start = c(1981, 1), end = c(2000, 12), frequency = 12)
