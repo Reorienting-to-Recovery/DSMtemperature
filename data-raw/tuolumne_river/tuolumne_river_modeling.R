@@ -233,7 +233,7 @@ na.interp(ts_tuolumne) %>% autoplot(series = 'Interpolated') +
   forecast::autolayer(ts_tuolumne, series = 'Original')
 
 tuolumne_air_temp_c <- tibble(
-  date = seq.Date(ymd('1981-01-01'), ymd('2000-12-01'), by = 'month'),
+  date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
   mean_air_temp_c = as.numeric(na.interp(ts_tuolumne)))
 
 
@@ -247,7 +247,7 @@ tuolumne_air_temp %>%
 tuolumne_pred_water_temp <- predict(tuolumne_model, tuolumne_air_temp_c)
 
 tuolumne_water_temp_c <- tibble(
-  date = seq.Date(ymd('1981-01-01'), ymd('2000-12-01'), by = 'month'),
+  date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
   watershed = 'Tuolumne River',
   monthly_mean_temp_c = tuolumne_pred_water_temp)
 

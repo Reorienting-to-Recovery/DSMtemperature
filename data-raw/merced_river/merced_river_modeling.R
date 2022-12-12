@@ -7,6 +7,9 @@ library(forecast)
 library(rnoaa)
 library(caret)
 
+# This uses CDEC CRS water temperature data and NOAA NCDC Merced air temperature data.
+# Alternative sources of data are noted in comments and code associated w/ alternative sources is commented out.
+
 # Pull water temperature data --------------------------------------------------
 
 # CDEC Gage
@@ -38,21 +41,14 @@ na.interp(ts_merced) %>% autoplot(series = 'Interpolated') +
 forecast::autolayer(ts_merced, series = 'Original')
 
 
-# air temperature data near stream ---------------------------------------------
+# alternative air temperature sources ---------------------------------------------
 
-# try CIMIS 148 air temps ---------------------------------------------------
-# cimis_148 <- read_csv("~/Downloads/cimis_148.csv") |>
-#   janitor::clean_names() |>
-#   group_by(year(date), month(date)) |>
-#   rename(year = `year(date)`, month = `month(date)`) |>
-#   summarise(mean_air_temp_c = mean(max_air_temp_c)) |>
-#   mutate(date = ymd(paste(year, month, '01', sep = '-'))) |>
-#   ungroup() |>
-#   select(date, mean_air_temp_c) |> glimpse()
-#
-# cimis_148 |> ggplot(aes(x=date, y=mean_air_temp_c)) + geom_col()
+# CIMIS station 148
+# these are from the California irrigation Management Information System (cimis.water.ca.gov)
+# map with stations can be found here: https://cimis.water.ca.gov/Stations.aspx
 
-# Currently using
+# air temperature data near stream ----------------------------------------
+
 # Merced california gage - better Rsquared than CIMIS 148
 token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
 # model training data 1/2011-12/2021
