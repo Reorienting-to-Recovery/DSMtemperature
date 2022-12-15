@@ -1,7 +1,7 @@
 Package: DSMtemperature
 Type: Package
 Title: Modeled Temperature Data for the CVPIA SIT Model
-Version: 1.1
+Version: 2.0
 Authors@R: c(
     person('Sadie', 'Gill', email = 'sgill@flowwest.com', role = c('cre', 'aut')),
     person('Emanuel', 'Rodriguez', email = 'erodriguez@flowwest.com', role = c('aut')),
