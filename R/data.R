@@ -234,7 +234,6 @@
 #' temperature. The most recent water temperature at San Joation River (SJR)
 #' \href{https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=SJR}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
 #' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
-#' @export
 "vernalis_temperature"
 
 
@@ -245,6 +244,5 @@
 #' temperature. The most recent water temperature at Rough and Ready Island
 #' \href{https://cdec.water.ca.gov/dynamicapp/staSearch?sta_chk=on&sta=RRI&sensor=211&collect=NONE+SPECIFIED&dur=&active=&lon1=&lon2=&lat1=&lat2=&elev1=-5&elev2=99000&nearby=&basin=NONE+SPECIFIED&hydro=NONE+SPECIFIED&county=NONE+SPECIFIED&agency_num=160&display=sta}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
 #' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
-#' @export
 "prisoners_point_temperature"
 
