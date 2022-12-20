@@ -83,7 +83,7 @@ big_chico_air_temp <- paradise1$data %>%
 
 big_chico <- big_chico_water_temp %>%
   left_join(big_chico_air_temp) %>%
-  filter(!is.na(mean_air_temp_c))
+  filter(!is.na(mean_air_temp_c)) %>% glimpse()
 
 big_chico %>%
   ggplot(aes(x = mean_air_temp_c, y = mean_water_temp_c)) +
@@ -118,7 +118,7 @@ paradise_air_temp <- paradise3$data %>%
   bind_rows(paradise5$data) %>%
   bind_rows(paradise6$data) %>%
   mutate(date = as_date(ymd_hms(date))) %>%
-  select(date, mean_air_temp_c = value) %>%
+  select(date, mean_air_temp_c = value) %>% 
   bind_rows(
     tibble(date = seq.Date(ymd('1979-01-01'), ymd('2000-12-01'), by = 'month'),
            mean_air_temp_c = 0)
@@ -126,7 +126,7 @@ paradise_air_temp <- paradise3$data %>%
   group_by(date) %>%
   summarise(mean_air_temp_c = max(mean_air_temp_c)) %>%
   ungroup() %>%
-  mutate(mean_air_temp_c = ifelse(mean_air_temp_c == 0, NA, mean_air_temp_c))
+  mutate(mean_air_temp_c = ifelse(mean_air_temp_c == 0, NA, mean_air_temp_c)) %>% glimpse
 
 
 ts_paradise <- ts(paradise_air_temp$mean_air_temp_c, start = c(1979, 1), end = c(2000, 12), frequency = 12)
