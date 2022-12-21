@@ -225,8 +225,8 @@ degree_days_2008_2009 <- generate_degree_days(monthly_mean_temperature_2008_2009
 degree_days_2018_2019 <- generate_degree_days(monthly_mean_temperature_2018_2019,
                                               temperatures_2018_2019, "2018 & 2019 Hec5q")
 
-degree_days <- list(biop_2008_2009 = stream_temp_2008_2009,
-                    biop_itp_2018_2019 = stream_temp_2018_2019)
+degree_days <- list(biop_2008_2009 = degree_days_2008_2009,
+                    biop_itp_2018_2019 = degree_days_2018_2019)
 
 usethis::use_data(degree_days, overwrite = TRUE)
 
