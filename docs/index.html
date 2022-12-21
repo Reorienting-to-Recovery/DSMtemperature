@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">DSMtemperature</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0</span>
       </span>
     </div>
 
@@ -76,26 +76,31 @@
 <h4 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"CVPIA-OSC/DSMtemperature"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"CVPIA-OSC/DSMtemperature"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h4>
 <p>This package provides temperature related datasets to the <a href="https://github.com/CVPIA-OSC/fallRunDSM" class="external-link"><code>fallRunDSM,</code></a> <a href="https://github.com/CVPIA-OSC/springRunDSM" class="external-link"><code>springRunDSM,</code></a> <a href="https://github.com/CVPIA-OSC/winterRunDSM" class="external-link"><code>winterRunDSM,</code></a> and <a href="https://github.com/CVPIA-OSC/latefallRunDSM" class="external-link"><code>latefallRunDSM</code></a> packages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># datasets within the package</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'DSMtemperature'</span><span class="op">)</span>
-
-<span class="co"># explore temperature modeling metadata</span>
-<span class="op">?</span><span class="fu">DSMtemperature</span><span class="fu">::</span><span class="va"><a href="reference/stream_temperature.html">stream_temperature</a></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># datasets within the package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'DSMtemperature'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># explore temperature modeling metadata</span></span>
+<span><span class="op">?</span><span class="fu">DSMtemperature</span><span class="fu">::</span><span class="va"><a href="reference/stream_temperature.html">stream_temperature</a></span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="about-the-models">About the Models<a class="anchor" aria-label="anchor" href="#about-the-models"></a>
 </h4>
-<p>Temperature inputs to the CVPIA Decision Support Model (DSM) were developed using one of the following methods:<br>
-1. HEC5Q water temperature model 2. Measured water temperatures 3. Correlation between measured air and water temperatures 4. Water temperature from the closest, most hydrologically and geomorphically similar watershed with available data.</p>
-<p>The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. Watershed specific methods are detailed on the Reference tab.</p>
+<p>Temperature inputs to the CVPIA Decision Support Model (DSM) were developed using one of the following methods:</p>
+<ol style="list-style-type: decimal">
+<li>HEC5Q water temperature model</li>
+<li>Measured water temperatures</li>
+<li>Correlation between measured air and water temperatures</li>
+<li>Water temperature from the closest, most hydrologically and geomorphically similar watershed with available data.</li>
+</ol>
+<p>The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. The DSMtemperature package contains HEC5Q from two distinct model runs: 2008-2009 CalSim II run and 2018-2019 CalSim II BiOp runs. Watershed specific methods are detailed on the Reference tab.</p>
 </div>
 </div>
 <div class="section level3">
@@ -158,7 +163,7 @@ Data Assembled and Maintained by <a href="http://www.flowwest.com/" target="_bla
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

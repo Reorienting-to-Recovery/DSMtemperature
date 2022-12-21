@@ -1,6 +1,14 @@
 #' Monthly Mean Water Temperature
-#' @description The 1980-2000 the monthly mean water temperature in °C
-#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
+#' @description A named list containing the 1980-2000 monthly mean water temperatures in °C.
+#' Each named list element is a temperature datasets of Hec5q and other modeled temps corresponding to 2008-2009 and 2018-2019 Calsim II BiOp runs.
+#'
+#' The named list components are:
+#' \itemize{
+#'     \item{biop_2008_2009: monthly stream temperature in degrees C for watersheds from the 2008-2009 Calsim II BiOp run.}
+#'     \item{biop_itp_2018_2019: monthly stream temperature in degrees C for watersheds from the 2018-2019 Calsim II BiOp & ITP run.}
+#' }
+#'
+#' @format A named list with two components, each containing a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details The following four methods were used to estimate the monthly mean water
 #' temperature for the watersheds during 1979-1999:
@@ -78,10 +86,26 @@
 #'    \item \strong{Calaveras River} Regression method was fitted to data from Deer Creek temperature gauges
 #'    \item \strong{Cosumnes River} Estimated mean monthly water temperature from a linear model fitted with water temperature data from USGS Gage ID: \href{https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&site_no=11335000}{11335000} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023271/detail}{USW00023271}
 #'    \item \strong{Mokelumne River} Estimated mean monthly water temperature from a linear model fitted with water temperature data provided by EBMUD measured near Victor, CA and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045032/detail}{USC00045032}
-#'    \item \strong{Merced River} HEC-5Q model output at SANTA FE BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS
-#'    \item \strong{Stanislaus River} HEC-5Q model output at BLW MCHENRY BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS
-#'    \item \strong{Tuolumne River} HEC-5Q model output at GEER ROAD BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS
-#'    \item \strong{San Joaquin River} HEC-5Q model output at ABV TUOL in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS
+#'    \item \strong{Merced River}
+#'        \itemize{
+#'            \item{biop_2008_2009: HEC-5Q model output at SANTA FE BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS}
+#'            \item{biop_itp_2018_2019: HEC-5Q model for San Joaquin is no longer supported. Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage Id: \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=CRS}{CRS} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045532/detail}{USC00045532}}
+#'         }
+#'    \item \strong{Stanislaus River}
+#'         \itemize{
+#'            \item{biop_2008_2009: HEC-5Q model output at BLW MCHENRY BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS}
+#'            \item{biop_itp_2018_2019: HEC-5Q model for San Joaquin is no longer supported. Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage Id: \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=RPN}{RPN} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023258/detail}{USW00023258}}
+#'         }
+#'    \item \strong{Tuolumne River}
+#'          \itemize{
+#'            \item{biop_2008_2009: HEC-5Q model output at GEER ROAD BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS}
+#'            \item{biop_itp_2018_2019: HEC-5Q model for San Joaquin is no longer supported. Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage Id: \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=MOD}{MOD} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023258/detail}{USW00023258}}
+#'         }
+#'    \item \strong{San Joaquin River}
+#'          \itemize{
+#'            \item{biop_2008_2009: HEC-5Q model output at ABV TUOL in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS}
+#'            \item{biop_itp_2018_2019: HEC-5Q model for San Joaquin is no longer supported. Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage Id: \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=CRS}{CRS} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045532/detail}{USC00045532}}
+#'         }
 #' }
 #'
 #'
@@ -95,8 +119,16 @@
 
 #' Degree Days
 #'
-#' @description The monthly accumulated degree days °C
-#' @format a 3 dimensional array [31 watersheds, 12 months, 22 years]
+#' @description A named list containing the monthly accumulated degree days °C.
+#' Each named list element is a temperature datasets of Hec5q and other modeled temps corresponding to 2008-2009 and 2018-2019 Calsim II BiOp runs.
+#'
+#' The named list components are:
+#' \itemize{
+#'     \item{biop_2008_2009: degree days for watersheds from the 2008-2009 Calsim II BiOp run.}
+#'     \item{biop_itp_2018_2019: degree days for watersheds from the 2018-2019 Calsim II BiOp & ITP run.}
+#' }
+#'
+#' @format A named list with two components, each containing a 3 dimensional array [31 watersheds, 12 months, 21 years]
 #'
 #' @details
 #' For watersheds with HEC-5Q modeled results, the calculation for degree days
@@ -110,7 +142,7 @@
 #' @source
 #' \itemize{
 #'   \item HEC-5Q Model Output and Double Regression Temperature Modeling: Michael Wright \email{mwright@@usbr.gov}
-#'   \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@@flowwest.com}, Erin Cain \email{ecain@@flowwest.com}
 #' }
 #'
 "degree_days"
@@ -202,7 +234,6 @@
 #' temperature. The most recent water temperature at San Joation River (SJR)
 #' \href{https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=SJR}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
 #' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
-#' @export
 "vernalis_temperature"
 
 
@@ -213,6 +244,5 @@
 #' temperature. The most recent water temperature at Rough and Ready Island
 #' \href{https://cdec.water.ca.gov/dynamicapp/staSearch?sta_chk=on&sta=RRI&sensor=211&collect=NONE+SPECIFIED&dur=&active=&lon1=&lon2=&lat1=&lat2=&elev1=-5&elev2=99000&nearby=&basin=NONE+SPECIFIED&hydro=NONE+SPECIFIED&county=NONE+SPECIFIED&agency_num=160&display=sta}{CDEC: RRI} was used for water temperature. Air temperature was obtained using
 #' NOAA CDO at \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00023237/detail}{Stockton Metropolitan Airport}.
-#' @export
 "prisoners_point_temperature"
 

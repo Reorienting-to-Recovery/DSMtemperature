@@ -5,19 +5,26 @@
 \alias{degree_days}
 \title{Degree Days}
 \format{
-a 3 dimensional array [31 watersheds, 12 months, 22 years]
+A named list with two components, each containing a 3 dimensional array [31 watersheds, 12 months, 21 years]
 }
 \source{
 \itemize{
   \item HEC-5Q Model Output and Double Regression Temperature Modeling: Michael Wright \email{mwright@usbr.gov}
-  \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@flowwest.com}
+  \item Data Wrangling and Additional Temperature Modeling: Sadie Gill  \email{sgill@flowwest.com}, Erin Cain \email{ecain@flowwest.com}
 }
 }
 \usage{
 degree_days
 }
 \description{
-The monthly accumulated degree days °C
+A named list containing the monthly accumulated degree days °C.
+Each named list element is a temperature datasets of Hec5q and other modeled temps corresponding to 2008-2009 and 2018-2019 Calsim II BiOp runs.
+
+The named list components are:
+\itemize{
+    \item{biop_2008_2009: degree days for watersheds from the 2008-2009 Calsim II BiOp run.}
+    \item{biop_itp_2018_2019: degree days for watersheds from the 2018-2019 Calsim II BiOp & ITP run.}
+}
 }
 \details{
 For watersheds with HEC-5Q modeled results, the calculation for degree days

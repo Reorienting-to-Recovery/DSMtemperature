@@ -1,7 +1,7 @@
 Package: DSMtemperature
 Type: Package
 Title: Modeled Temperature Data for the CVPIA SIT Model
-Version: 1.0
+Version: 2.0
 Authors@R: c(
     person('Sadie', 'Gill', email = 'sgill@flowwest.com', role = c('cre', 'aut')),
     person('Emanuel', 'Rodriguez', email = 'erodriguez@flowwest.com', role = c('aut')),
@@ -12,7 +12,7 @@ Description: This data package contains modeled temperature data for each of the
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 URL: https://CVPIA-OSC.github.io/DSMtemperature/
 Depends: 
     R (>= 2.10)

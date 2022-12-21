@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DSMtemperature</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0</span>
       </span>
     </div>
 
@@ -48,6 +48,17 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="2.0" id="dsmtemperature-20">DSMtemperature 2.0<a class="anchor" aria-label="anchor" href="#dsmtemperature-20"></a></h2>
+<p>The 2022 update to DSMtemperature includes the following changes:</p>
+<ul><li><p><strong>CALSIM updates</strong>. Updated <code>stream_temperature</code> and <code>degree_days</code> datasets include new 2019 biop flows. The result of doing so means accessing each temperature dataset must be done using the following format: <code>stream_temperature$biop_2008_2009</code> and <code>stream_temperature$biop_itp_2018_2019</code>.</p></li>
+<li><p><strong>Modeling updates</strong>. The Hec5q models associated with the 2019 biop no longer support the San Joaquin river and its tributaries. We had to do additional temperature modeling to make up for these data gaps. Data for Merced River, Stanislaus River, Tuolumne River, and the San Joaquin River is now modeled using an air to water linear regression.</p></li>
+</ul><p>Temperature related datasets for use with the following DSM models:</p>
+<ul><li><a href="https://github.com/CVPIA-OSC/fallRunDSM/releases/tag/v3.0" class="external-link">Fall Run DSM (v3.0)</a></li>
+<li><a href="https://github.com/CVPIA-OSC/fallRunDSM/releases/tag/v2.0" class="external-link">Late Fall Run DSM (v2.0)</a></li>
+<li><a href="https://github.com/CVPIA-OSC/winterRunDSM/releases/tag/v3.0" class="external-link">Winter Run DSM (v3.0)</a></li>
+<li><a href="https://github.com/CVPIA-OSC/springRunDSM/releases/tag/v3.0" class="external-link">Spring Run DSM (v3.0)</a></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0" id="dsmtemperature-10">DSMtemperature 1.0<a class="anchor" aria-label="anchor" href="#dsmtemperature-10"></a></h2>
 <p>Temperature related datasets for use with the following DSM models:</p>
 <ul><li><a href="https://github.com/CVPIA-OSC/fallRunDSM/releases/tag/v2.0" class="external-link">Fall Run DSM (v2.0)</a></li>
@@ -57,7 +68,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="dsmtemperature-001">DSMtemperature 0.0.1<a class="anchor" aria-label="anchor" href="#dsmtemperature-001"></a></h2>
-<p>Aplha release of temperature input data migrated from CVPIA-OSC/DSMtemperature</p>
+<p>Alpha release of temperature input data migrated from CVPIA-OSC/DSMtemperature</p>
 </div>
   </div>
 
@@ -73,7 +84,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

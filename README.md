@@ -24,13 +24,14 @@ data(package = 'DSMtemperature')
 ```
 
 #### About the Models
-Temperature inputs to the CVPIA Decision Support Model (DSM) were developed using one of the following methods:    
+Temperature inputs to the CVPIA Decision Support Model (DSM) were developed using one of the following methods:   
+
 1. HEC5Q water temperature model
 2. Measured water temperatures
 3. Correlation between measured air and water temperatures
 4. Water temperature from the closest, most hydrologically and geomorphically similar watershed with available data. 
 
-The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. Watershed specific methods are detailed on the Reference tab. 
+The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. The DSMtemperature package contains HEC5Q from two distinct model runs: 2008-2009 CalSim II run and 2018-2019 CalSim II BiOp runs. Watershed specific methods are detailed on the Reference tab. 
 
 ### Dependencies
 The `DSMTemperature` package provides data for several other packages within the [CVPIA Open Science Collaborative](https://github.com/CVPIA-OSC). These relationships are visualized in the dependency graph below. 
