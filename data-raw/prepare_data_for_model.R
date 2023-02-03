@@ -215,7 +215,8 @@ generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_ver
     arrange(order) %>%
     select(-watershed, -order) %>%
     DSMflow::create_model_array()
-
+  # TODO fix how we handle NAs in 1979 - not sure how we avoided this before - for now replaceing with 0
+  degree_days[is.na(degree_days)] <- 0
   dimnames(degree_days) <- list(cvpia_watershed, month.abb, 1979:2000)
   return(degree_days)
 }
