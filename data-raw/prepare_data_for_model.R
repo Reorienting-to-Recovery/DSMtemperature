@@ -94,7 +94,7 @@ monthly_mean_temperature_2018_2019 <- temperatures_2018_2019 %>%
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
   # TODO add San Joaquin River, Stanislaus River, Merced, & Toulumne need to do regression modeling
   spread(watershed, monthly_mean_temp_c) %>%
-  filter(year(date) >= 19879 & year(date) <= 2000) %>%
+  filter(year(date) >= 1979 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
 
