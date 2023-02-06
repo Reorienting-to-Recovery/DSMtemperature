@@ -44,7 +44,7 @@ monthly_mean_temperature_2008_2009 <- temperatures_2008_2009 %>%
   ungroup() %>%
   mutate(cl_date = ymd(paste(year, month, 1, sep = '-'))) %>%
   left_join(cl_dates) %>%
-  filter(between(year(cs_date), 1980, 2000)) %>%
+  filter(between(year(cs_date), 1979, 2000)) %>%
   mutate(date = ymd(paste(year(cs_date), month(cs_date), 1, sep = '-'))) %>%
   select(date, watershed, monthly_mean_temp_c) %>%
   bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
@@ -59,7 +59,7 @@ monthly_mean_temperature_2008_2009 <- temperatures_2008_2009 %>%
   bind_rows(read_rds('data-raw/sutter/sutter_bypass_water_temp_c.rds')) %>%
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
   spread(watershed, monthly_mean_temp_c) %>%
-  filter(year(date) >= 1980 & year(date) <= 2000) %>%
+  filter(year(date) >= 1979 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
 
@@ -74,7 +74,7 @@ monthly_mean_temperature_2018_2019 <- temperatures_2018_2019 %>%
   group_by(year = year(date), month = month(date), watershed) %>%
   summarise(monthly_mean_temp_c = mean(mean_daily_temp_C)) %>%
   ungroup() %>%
-  filter(between(year, 1980, 2000)) %>%
+  filter(between(year, 1979, 2000)) %>%
   mutate(date = ymd(paste(year, month, 1, sep = '-'))) %>%
   select(date, watershed, monthly_mean_temp_c) %>%
   bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
@@ -94,13 +94,14 @@ monthly_mean_temperature_2018_2019 <- temperatures_2018_2019 %>%
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
   # TODO add San Joaquin River, Stanislaus River, Merced, & Toulumne need to do regression modeling
   spread(watershed, monthly_mean_temp_c) %>%
-  filter(year(date) >= 1980 & year(date) <= 2000) %>%
+  filter(year(date) >= 19879 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
 
 # stream temperature -----------------------------------------------------------
 generate_stream_temperature <- function(monthly_mean_temperature_data) {
 stream_temperature <- monthly_mean_temperature_data %>%
+  filter(year(date) >= 1980 & year(date) <= 2000) %>%
   spread(date, monthly_mean_temp_c) %>%
   left_join(DSMflow::watershed_ordering) %>%
   arrange(order) %>%
