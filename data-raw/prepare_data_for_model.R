@@ -115,10 +115,6 @@ temperatures_run_of_river <- run_of_river_tmp |>
   bind_rows(run_of_river_pre_2003) |>
   filter(year(date) >= 1922, year(date) <= 2002)
 
-ggplot(temperatures_run_of_river, aes(x = date, y = mean_daily_temp_F)) +
-  geom_line(aes(color = watershed)) +
-  facet_wrap(~watershed)
-
 monthly_mean_temperature_run_of_river <- temperatures_run_of_river |>
   group_by(year = year(date), month = month(date), watershed) %>%
   summarise(monthly_mean_temp_c = mean(mean_daily_temp_C)) %>%
@@ -143,6 +139,9 @@ monthly_mean_temperature_run_of_river <- temperatures_run_of_river |>
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
   bind_rows(read_rds('data-raw/lower_mid_sacramento_river/lower_mid_sacramento_river_water_temp_c.rds')) |>
   bind_rows(read_rds('data-raw/battle_creek/battle_creek_water_temp_c.rds')) |>
+  bind_rows(read_rds('data-raw/upper_sacramento_river/upper_sacramento_river_water_temp_c.rds')) |>
+  bind_rows(read_rds('data-raw/upper_mid_sacramento_river/upper_mid_sacramento_river_water_temp_c.rds')) |>
+  bind_rows(monthly_mean_temperature_2018_2019 |> filter(watershed == "Thomes Creek")) |> #TODO: double check this logic since there is no water temperature gage on Thomes crek
   spread(watershed, monthly_mean_temp_c) %>%
   filter(year(date) >= 1979 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
@@ -171,6 +170,8 @@ return(stream_temperature)
 
 stream_temp_2008_2009 <- generate_stream_temperature(monthly_mean_temperature_2008_2009)
 stream_temp_2018_2019 <- generate_stream_temperature(monthly_mean_temperature_2018_2019)
+stream_temp_run_of_river <- generate_stream_temperature(monthly_mean_temperature_run_of_river)
+
 
 # Check how new modeled results compare to old calsim results
 # TODO more digging into temp modeling on these ones
@@ -181,7 +182,8 @@ stream_temp_2018_2019 <- generate_stream_temperature(monthly_mean_temperature_20
 
 # create temp with both 2008-2009 biop and 2018-2019 biop/itp ---------------
 stream_temperature <- list(biop_2008_2009 = stream_temp_2008_2009,
-                           biop_itp_2018_2019 = stream_temp_2018_2019)
+                           biop_itp_2018_2019 = stream_temp_2018_2019,
+                           run_of_river = stream_temp_run_of_river)
 
 usethis::use_data(stream_temperature, overwrite = TRUE)
 
@@ -282,9 +284,12 @@ degree_days_2008_2009 <- generate_degree_days(monthly_mean_temperature_2008_2009
                                               temperatures_2008_2009, "2008 & 2009 Hec5q")
 degree_days_2018_2019 <- generate_degree_days(monthly_mean_temperature_2018_2019,
                                               temperatures_2018_2019, "2018 & 2019 Hec5q")
+degree_days_run_of_river <- generate_degree_days(monthly_mean_temperature_run_of_river,
+                                              temperatures_run_of_river, "Run of River Hec5q")
 
 degree_days <- list(biop_2008_2009 = degree_days_2008_2009,
-                    biop_itp_2018_2019 = degree_days_2018_2019)
+                    biop_itp_2018_2019 = degree_days_2018_2019,
+                    run_of_river = degree_days_run_of_river)
 
 usethis::use_data(degree_days, overwrite = TRUE)
 
