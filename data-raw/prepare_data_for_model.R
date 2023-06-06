@@ -141,7 +141,8 @@ monthly_mean_temperature_run_of_river <- temperatures_run_of_river |>
   bind_rows(read_rds('data-raw/merced_river/merced_river_water_temp_c.rds')) %>% # TODO check regressions
   bind_rows(read_rds('data-raw/tuolumne_river/tuolumne_river_water_temp_c.rds')) %>% # TODO check regressions
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
-  bind_rows(read_rds('data-raw/knights_landing/lower_mid_sacramento_river_water_temp_c.rds')) |>
+  bind_rows(read_rds('data-raw/lower_mid_sacramento_river/lower_mid_sacramento_river_water_temp_c.rds')) |>
+  bind_rows(read_rds('data-raw/battle_creek/battle_creek_water_temp_c.rds')) |>
   spread(watershed, monthly_mean_temp_c) %>%
   filter(year(date) >= 1979 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
