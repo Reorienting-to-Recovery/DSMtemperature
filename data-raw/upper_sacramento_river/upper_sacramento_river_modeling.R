@@ -6,7 +6,7 @@ library(forcats)
 library(rnoaa)
 library(caret)
 
-# hourly water temperature data on THO (fahrenheit)
+# hourly water temperature data on JLF (fahrenheit)
 #07/29/1998 to present
 
 CDECRetrieve::cdec_stations("JLF")
@@ -15,7 +15,6 @@ CDECRetrieve::cdec_stations("JLF")
 jlf <- CDECRetrieve::cdec_query(station = 'jlf', sensor_num = '25', dur_code = 'H',
                                 start_date = '2008-02-13', end_date = '2017-06-30')
 
-# bcd = durham
 upper_sac_water_temp <- jlf %>%
   select(datetime, temp_f = parameter_value) %>%
   filter(between(temp_f, 10, 100)) %>%

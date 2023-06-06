@@ -6,7 +6,7 @@ library(forcats)
 library(rnoaa)
 library(caret)
 
-# hourly water temperature data on THO (fahrenheit)
+# hourly water temperature data on BNF (fahrenheit)
 #07/29/1998 to present
 
 CDECRetrieve::cdec_stations("BNF")
