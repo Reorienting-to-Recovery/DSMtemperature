@@ -92,11 +92,66 @@ monthly_mean_temperature_2018_2019 <- temperatures_2018_2019 %>%
   bind_rows(read_rds('data-raw/merced_river/merced_river_water_temp_c.rds')) %>% # TODO check regressions
   bind_rows(read_rds('data-raw/tuolumne_river/tuolumne_river_water_temp_c.rds')) %>% # TODO check regressions
   bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
-  # TODO add San Joaquin River, Stanislaus River, Merced, & Toulumne need to do regression modeling
   spread(watershed, monthly_mean_temp_c) %>%
   filter(year(date) >= 1979 & year(date) <= 2000) %>%
   gather(watershed, monthly_mean_temp_c, -date)
 
+
+# Calsim Run of River temperature data prep -------------------------------
+run_of_river_tmp <- readxl::read_excel('data-raw/hec5_sac_update.xlsx') %>%
+  bind_cols(readxl::read_excel("data-raw/hec5_american.xlsx")) |>
+  rename('date' = `...2`) |>
+  select(date, `Clear Creek`, `Cottonwood Creek`, `Stony Creek`, `Cow Creek`, `American River`) |>
+  pivot_longer(cols = c(`Clear Creek`:`American River`), names_to = "watershed") |>
+  rename('mean_daily_temp_F' = 'value') |>
+  mutate(mean_daily_temp_C = (mean_daily_temp_F - 32) * (5/9))
+
+run_of_river_pre_2003 <- run_of_river_tmp |>
+  filter(year(date) <= 2003)
+
+temperatures_run_of_river <- run_of_river_tmp |>
+  filter(year(date) > 2003) |>
+  mutate(date = as.Date(date)-lubridate::years(100)) |>
+  bind_rows(run_of_river_pre_2003) |>
+  filter(year(date) >= 1922, year(date) <= 2002)
+
+ggplot(temperatures_run_of_river, aes(x = date, y = mean_daily_temp_F)) +
+  geom_line(aes(color = watershed)) +
+  facet_wrap(~watershed)
+
+monthly_mean_temperature_run_of_river <- temperatures_run_of_river |>
+  group_by(year = year(date), month = month(date), watershed) %>%
+  summarise(monthly_mean_temp_c = mean(mean_daily_temp_C)) %>%
+  ungroup() %>%
+  filter(between(year, 1979, 2000)) %>%
+  mutate(date = ymd(paste(year, month, 1, sep = '-'))) %>%
+  select(date, watershed, monthly_mean_temp_c) |>
+  bind_rows(read_rds('data-raw/big_chico_creek/big_chico_creek_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/butte_creek/butte_creek_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/cosumnes_river/cosumnes_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/deer_creek/deer_creek_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/lower_sacramento/lower_sac_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/mill_creek/mill_creek_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/mokelumne_river/mokelumne_river_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/yuba_river/yuba_river_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/yolo/yolo_bypass_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/sutter/sutter_bypass_water_temp_c.rds')) %>%
+  bind_rows(read_rds('data-raw/san_joaquin/san_joaquin_creek_water_temp_c.rds')) %>%  # TODO check regressions
+  bind_rows(read_rds('data-raw/stanislaus_river/stanislaus_river_water_temp_c.rds')) %>% # TODO check regressions
+  bind_rows(read_rds('data-raw/merced_river/merced_river_water_temp_c.rds')) %>% # TODO check regressions
+  bind_rows(read_rds('data-raw/tuolumne_river/tuolumne_river_water_temp_c.rds')) %>% # TODO check regressions
+  bind_rows(read_rds('data-raw/mike_wright_temperature_regression/juv_temp_regression.rds')) %>%
+  bind_rows(read_rds('data-raw/knights_landing/lower_mid_sacramento_river_water_temp_c.rds')) |>
+  spread(watershed, monthly_mean_temp_c) %>%
+  filter(year(date) >= 1979 & year(date) <= 2000) %>%
+  gather(watershed, monthly_mean_temp_c, -date)
+
+length(unique(monthly_mean_temperature_run_of_river$watershed))
+setdiff(fallRunDSM::watershed_labels, monthly_mean_temperature_run_of_river$watershed)
+
+ggplot(monthly_mean_temperature_run_of_river, aes(x = date, y = monthly_mean_temp_c)) +
+  geom_line() +
+  facet_wrap(~watershed)
 
 # stream temperature -----------------------------------------------------------
 generate_stream_temperature <- function(monthly_mean_temperature_data) {
