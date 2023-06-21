@@ -6,6 +6,12 @@ library(forcats)
 library(rnoaa)
 library(caret)
 
+#https://waterdata.usgs.gov/ca/nwis/inventory/?site_no=11391100
+# has water temperature data from 1995-10-05 to `1996-09-30` therefore will use CDEC gage
+knights_water_temp <- dataRetrieval::readNWISdv(siteNumbers = '11391100', parameterCd = '00010',
+                                             startDate = '1998-10-05', endDate = '2017-12-15',
+                                             statCd = c('00001', '00002', '00008'))
+
 # hourly water temperature data on VON (fahrenheit)
 #07/29/1998 to present
 
