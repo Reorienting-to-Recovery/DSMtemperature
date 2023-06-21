@@ -26,6 +26,16 @@ upper_mid_water_temp <- rdb %>%
   select(date, mean_water_temp_c) %>%
   filter(!is.na(date))
 
+rdb %>%
+  select(datetime, temp_f = parameter_value) %>%
+  filter(between(temp_f, 10, 100)) |>
+  mutate(mean_water_temp_c = (temp_f - 32) * 5 / 9) |>
+  ggplot() +
+  geom_line(aes(x = datetime, y = mean_water_temp_c))
+
+ggplot() +
+  geom_line(data = upper_mid_water_temp, aes(x = date, y = mean_water_temp_c))
+
 # air temperature data near stream
 token <- Sys.getenv("token") #noaa cdo api token saved in .Renviron file
 

@@ -152,13 +152,10 @@ length(unique(monthly_mean_temperature_run_of_river$watershed))
 setdiff(fallRunDSM::watershed_labels, monthly_mean_temperature_run_of_river$watershed)
 
 ggplot() +
-  geom_line(data = monthly_mean_temperature_run_of_river |>
-              filter(watershed == "Upper-mid Sacramento River"), aes(x = date, y = monthly_mean_temp_c, color = "run of river")) +
-  geom_line(data = monthly_mean_temperature_2018_2019|>
-              filter(watershed == "Upper-mid Sacramento River"), aes(x = date, y = monthly_mean_temp_c, color = "2019 Biop")) +
-  geom_line(data = monthly_mean_temperature_2008_2009|>
-              filter(watershed == "Upper-mid Sacramento River"), aes(x = date, y = monthly_mean_temp_c, color = "2008 Biop"))
-  #facet_wrap(~watershed)
+  geom_line(data = monthly_mean_temperature_run_of_river, aes(x = date, y = monthly_mean_temp_c, color = "run of river")) +
+  geom_line(data = monthly_mean_temperature_2018_2019, aes(x = date, y = monthly_mean_temp_c, color = "2019 Biop")) +
+  geom_line(data = monthly_mean_temperature_2008_2009, aes(x = date, y = monthly_mean_temp_c, color = "2008 Biop")) +
+  facet_wrap(~watershed)
 
 # stream temperature -----------------------------------------------------------
 generate_stream_temperature <- function(monthly_mean_temperature_data) {
