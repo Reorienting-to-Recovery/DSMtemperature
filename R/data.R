@@ -62,16 +62,16 @@
 #' \itemize{
 #'    \item \strong{Upper Sacramento River}
 #'      \itemize{
-#'        \item{biop_2008_2009: HEC-5Q model output at COTTONWOOD CR in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
-#'        \item{biop_itp_2018_2019: HEC-5Q model output at COTTONWOOD CR in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
+#'        \item{biop_2008_2009: HEC-5Q model output}
+#'        \item{biop_itp_2018_2019: HEC-5Q model output}
 #'        \item{run_of_river: Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage ID: \href{# https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=jlf}{JLF} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00024216/detail}{USW00024216}}
 #'    }
 #'
 #'    \item \strong{Antelope Creek} Regression method was fitted to data from in-river temperature gauges
 #'    \item \strong{Battle Creek}
 #'      \itemize{
-#'        \item{biop_2008_2009: HEC-5Q model output at BATTLE CR in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
-#'        \item{biop_itp_2018_2019: HEC-5Q model output at BATTLE CR in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
+#'        \item{biop_2008_2009: HEC-5Q model output}
+#'        \item{biop_itp_2018_2019: HEC-5Q model output}
 #'        \item{run_of_river: Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage ID: \href{# https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=bnf}{BNF} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00024257/detail}{USW00024257}}
 #'    }
 #'    \item \strong{Bear Creek} Regression method was fitted to data from in-river temperature gauges
@@ -88,8 +88,8 @@
 #'    \item \strong{Thomes Creek} HEC-5Q model output at THOMES CR in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS
 #'    \item \strong{Upper-mid Sacramento River}
 #'     \itemize{
-#'       \item{biop_2008_2009: HEC-5Q model output at STONY CREEK in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
-#'        \item{biop_itp_2018_2019: HEC-5Q model output at STONY CREEK in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
+#'       \item{biop_2008_2009: HEC-5Q model output}
+#'        \item{biop_itp_2018_2019: HEC-5Q model output}
 #'        \item{run_of_river: Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage ID: \href{# https://cdec.water.ca.gov/dynamicapp/staMeta?station_id=rdb}{RDB} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00024216/detail}{USW00024216}}
 #'    }
 #'    \item \strong{Sutter Bypass} Tisdale Rotary Screw Trap monthly mean water temperature 2011-2017
@@ -98,8 +98,8 @@
 #'    \item \strong{Yuba River} Estimated mean monthly water temperature from a linear model fitted with water temperature data from USGS Gage ID: \href{https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&site_no=11421000}{11421000} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USW00024216/detail}{USW00024216}
 #'    \item \strong{Lower-mid Sacramento River}
 #'      \itemize{
-#'        \item{biop_2008_2009: HEC-5Q model output at KNIGHTS LDG in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
-#'        \item{biop_itp_2018_2019: HEC-5Q model output at KNIGHTS LDG in SSJB_SAC_Reference_062315/SAC/SAC_CL_TEMP.DSS}
+#'        \item{biop_2008_2009: HEC-5Q model output}
+#'        \item{biop_itp_2018_2019: HEC-5Q model output}
 #'        \item{run_of_river: Estimated mean monthly water temperature from a mean monthly water temperature linear model fitted with water temperature from USGS Gage ID:\href{https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&site_no=11391100}{11391100} with imputed missing values using \href{https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp}{\code{forecast::na.interp}}}
 #'      }
 #'    \item \strong{Yolo Bypass} Knights Landing Rotary Screw Trap monthly mean water temperature 2004-2018
@@ -110,7 +110,7 @@
 #'    \item \strong{Mokelumne River} Estimated mean monthly water temperature from a linear model fitted with water temperature data provided by EBMUD measured near Victor, CA and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045032/detail}{USC00045032}
 #'    \item \strong{Merced River}
 #'        \itemize{
-#'            \item{biop_2008_2009: HEC-5Q model output at SANTA FE BR in SSJB_SJR_Reference_062915/SJR/SJR_CL_TEMP.DSS}
+#'            \item{biop_2008_2009: HEC-5Q model output}
 #'            \item{biop_itp_2018_2019: HEC-5Q model for San Joaquin is no longer supported. Estimated mean monthly water temperature from a linear model fitted with water temperature data from CDEC Gage Id: \href{http://cdec.water.ca.gov/cgi-progs/staMeta?station_id=CRS}{CRS} and air temperature data from NOAA CDO Station Id: \href{https://www.ncdc.noaa.gov/cdo-web/datasets/GSOM/stations/GHCND:USC00045532/detail}{USC00045532}}
 #'            \item{run_of_river: used same water to air temperature regression data as biop_itp_2018_2019}
 #'         }
