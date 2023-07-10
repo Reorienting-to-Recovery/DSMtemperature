@@ -69,7 +69,7 @@ sjt_median_p20 <- sjt %>%
   summarise(p20 = sum(over20)/n()) %>%
   group_by(month) %>%
   summarise(median_p20 = median(p20)) %>%
-  mutate(group = 'San Joaquin') |> View()
+  mutate(group = 'San Joaquin')
 
 # training_years <- 1979:1999
 # training_air_temp <- purrr::map_df(training_years, function(year) {
@@ -132,9 +132,7 @@ bind_rows(sdt_median_p20, sjt_median_p20, sact_median_p20) %>%
 
 median_p20 <- bind_rows(sdt_median_p20, sjt_median_p20, sact_median_p20)
 
-watersheds_order <-  DSMhabitat::watershed_species_present %>%
-  select(order, watershed = watershed_name) |>
-  filter(watershed != "Upper Mid Sac Region")
+watersheds_order <-  DSMflow::watershed_ordering
 
 watershed_groups <- watersheds_order %>%
   mutate(group = case_when(
@@ -163,29 +161,9 @@ dimnames(migratory_temperature_proportion_over_20) <- list(watersheds_order$wate
 usethis::use_data(migratory_temperature_proportion_over_20, overwrite = TRUE)
 
 # migratory for springRun
-watershed_groups_sr <- watersheds_order %>%
-  mutate(group = case_when(
-    order %in% 28:31 ~ 'San Joaquin',
-    order %in% 25:27 ~ 'South Delta',
-    order %in% c(16, 17, 21, 22, 24) ~ as.character(NA),
-    TRUE ~ 'Sacramento'
-  ))
-
-missing <- watershed_groups_sr[c(16, 17, 21, 22, 24), ]
-other_sheds <- tibble(order = rep(missing$order, 12),
-                      watershed = rep(missing$watershed, 12),
-                      month = rep(1:12, each = 5),
-                      median_p20 = 0)
-
-migratory_temperature_proportion_over_20_sr <- median_p20 %>%
-  left_join(watershed_groups) %>%
-  select(order, watershed, month, median_p20) %>%
-  bind_rows(other_sheds) %>%
-  arrange(month, order) %>%
-  spread(month, median_p20) %>%
-  select(`1`:`12`) %>%
-  as.matrix()
-dimnames(migratory_temperature_proportion_over_20_sr) <- list(watersheds_order$watershed, month.abb)
+## update to match Tuolumne River (30)
+migratory_temperature_proportion_over_20_sr <- migratory_temperature_proportion_over_20
+migratory_temperature_proportion_over_20_sr[31, ] <- migratory_temperature_proportion_over_20_sr[30, ]
 
 # check - should only be different for San Joaquin:
 migratory_temperature_proportion_over_20_sr == DSMtemperature::migratory_temperature_proportion_over_20
