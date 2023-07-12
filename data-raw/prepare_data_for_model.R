@@ -323,6 +323,9 @@ mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
   select(watershed = Watershed.full, mean_temp_effect) %>%
   pull(mean_temp_effect)
 
+# spring temperature effect for SJ same as Tuolumne
+spring_temperature_effect <- mean_temperature_effect
+spring_temperature_effect[31] <- spring_temperature_effect[30]
 
 # WR Egg temperature effect -----
 wr_egg_temperature_effect <- rep(0.6466230, 31) # Winter-run value was calibrated.
@@ -330,7 +333,7 @@ wr_egg_temperature_effect <- rep(0.6466230, 31) # Winter-run value was calibrate
 # Combine into dataframe
 egg_temperature_effect <- data.frame(watershed = cvpia_watershed,
                                      fall_run = mean_temperature_effect,
-                                     spring_run = mean_temperature_effect,
+                                     spring_run = spring_temperature_effect,
                                      winter_run = wr_egg_temperature_effect)
 
 
