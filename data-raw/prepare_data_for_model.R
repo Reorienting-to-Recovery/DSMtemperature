@@ -224,13 +224,19 @@ cl_years <- cl_dates %>%
   select(cl_year, cs_year) %>%
   unique()
 
+# watershed id zeros: 16*, 17, 21, 22, 24, 31 (no spawning)
+# *upper mid sac (16) spawning area is represented within upper sac in model
+no_spawning_regions <- DSMflow::watershed_ordering %>%
+  filter(order %in% c(16, 17, 21, 22, 24, 31)) %>%
+  pull(watershed)
+
+no_spawning_regions_sr <- DSMflow::watershed_ordering %>%
+  filter(order %in% c(16, 17, 21, 22, 24)) %>%
+  pull(watershed)
+
+
 # take modeled mean monthly flow and multiple by number of days to estimate degree days
-generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_version) {
-  # watershed id zeros: 16*, 17, 21, 22, 24, 31 (no spawning)
-  # *upper mid sac (16) spawning area is represented within upper sac in model
-  no_spawning_regions <- DSMflow::watershed_ordering %>%
-    filter(order %in% c(16, 17, 21, 22, 24, 31)) %>%
-    pull(watershed)
+generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_version, no_spawning_regions) {
 
   if (hec_version == "2008 & 2009 Hec5q") {
   hec5q_degree_days <- temperatures %>%
@@ -265,7 +271,7 @@ generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_ver
     select(date, watershed, degdays)
 
   zero_degree_days <- tibble(
-    date = rep(seq(as.Date('1979-01-01'), as.Date('2000-12-01'), by = 'month'), each = 6),
+    date = rep(seq(as.Date('1979-01-01'), as.Date('2000-12-01'), by = 'month'), each = length(no_spawning_regions)),
     watershed = rep(no_spawning_regions, times = 264),
     degdays = 0
   )
@@ -285,17 +291,31 @@ generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_ver
 }
 
 degree_days_2008_2009 <- generate_degree_days(monthly_mean_temperature_2008_2009,
-                                              temperatures_2008_2009, "2008 & 2009 Hec5q")
+                                              temperatures_2008_2009, "2008 & 2009 Hec5q", no_spawning_regions)
 degree_days_2018_2019 <- generate_degree_days(monthly_mean_temperature_2018_2019,
-                                              temperatures_2018_2019, "2018 & 2019 Hec5q")
+                                              temperatures_2018_2019, "2018 & 2019 Hec5q", no_spawning_regions)
 degree_days_run_of_river <- generate_degree_days(monthly_mean_temperature_run_of_river,
-                                              temperatures_run_of_river, "Run of River Hec5q")
+                                              temperatures_run_of_river, "Run of River Hec5q", no_spawning_regions)
 
 degree_days <- list(biop_2008_2009 = degree_days_2008_2009,
                     biop_itp_2018_2019 = degree_days_2018_2019,
                     run_of_river = degree_days_run_of_river)
 
 usethis::use_data(degree_days, overwrite = TRUE)
+
+# spring run degree days:
+degree_days_2008_2009_sr <- generate_degree_days(monthly_mean_temperature_2008_2009,
+                                              temperatures_2008_2009, "2008 & 2009 Hec5q", no_spawning_regions_sr)
+degree_days_2018_2019_sr <- generate_degree_days(monthly_mean_temperature_2018_2019,
+                                              temperatures_2018_2019, "2018 & 2019 Hec5q", no_spawning_regions_sr)
+degree_days_run_of_river_sr <- generate_degree_days(monthly_mean_temperature_run_of_river,
+                                                 temperatures_run_of_river, "Run of River Hec5q", no_spawning_regions_sr)
+
+degree_days_sr <- list(biop_2008_2009 = degree_days_2008_2009_sr,
+                    biop_itp_2018_2019 = degree_days_2018_2019_sr,
+                    run_of_river = degree_days_run_of_river_sr)
+
+usethis::use_data(degree_days_sr, overwrite = TRUE)
 
 # FR and  SR Egg temperature effect -----
 mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%

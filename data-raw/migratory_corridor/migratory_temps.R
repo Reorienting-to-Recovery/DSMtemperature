@@ -132,7 +132,9 @@ bind_rows(sdt_median_p20, sjt_median_p20, sact_median_p20) %>%
 
 median_p20 <- bind_rows(sdt_median_p20, sjt_median_p20, sact_median_p20)
 
-watershed_groups <- cvpiaData::watershed_ordering %>%
+watersheds_order <-  DSMflow::watershed_ordering
+
+watershed_groups <- watersheds_order %>%
   mutate(group = case_when(
     order %in% 28:30 ~ 'San Joaquin',
     order %in% 25:27 ~ 'South Delta',
@@ -140,7 +142,7 @@ watershed_groups <- cvpiaData::watershed_ordering %>%
     TRUE ~ 'Sacramento'
   ))
 
-missing <- cvpiaData::watershed_ordering[c(16, 17, 21, 22, 24, 31), ]
+missing <- watersheds_order[c(16, 17, 21, 22, 24, 31), ]
 other_sheds <- tibble(order = rep(missing$order, 12),
        watershed = rep(missing$watershed, 12),
        month = rep(1:12, each = 6),
@@ -154,6 +156,16 @@ migratory_temperature_proportion_over_20 <- median_p20 %>%
   spread(month, median_p20) %>%
   select(`1`:`12`) %>%
   as.matrix()
-dimnames(migratory_temperature_proportion_over_20) <- list(cvpiaFlow::watershed_ordering$watershed, month.abb)
+dimnames(migratory_temperature_proportion_over_20) <- list(watersheds_order$watershed, month.abb)
 
 usethis::use_data(migratory_temperature_proportion_over_20, overwrite = TRUE)
+
+# migratory for springRun
+## update to match Tuolumne River (30)
+migratory_temperature_proportion_over_20_sr <- migratory_temperature_proportion_over_20
+migratory_temperature_proportion_over_20_sr[31, ] <- migratory_temperature_proportion_over_20_sr[30, ]
+
+# check - should only be different for San Joaquin:
+migratory_temperature_proportion_over_20_sr == DSMtemperature::migratory_temperature_proportion_over_20
+
+usethis::use_data(migratory_temperature_proportion_over_20_sr, overwrite = TRUE)
