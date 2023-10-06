@@ -318,21 +318,13 @@ degree_days_sr <- list(biop_2008_2009 = degree_days_2008_2009_sr,
 usethis::use_data(degree_days_sr, overwrite = TRUE)
 
 # degree days for above dam that max out at 17 degrees
-# TODO: is 17 the correct threshold value. Double check.
-# 2008 2009
-monthly_mean_temperature_2008_2009_abv_dam <- monthly_mean_temperature_2008_2009 |>
-  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 17, 17, monthly_mean_temp_c))
-temperatures_2008_2009_abv_dam <- temperatures_2008_2009 |>
-  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 17, 17, mean_daily_temp_C),
-         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 62.6, 62.6, mean_daily_temp_F))
+# TODO: is 17 the correct threshold value. Double check. Explore how the threshold affects output
 
-degree_days_2008_2009_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_2008_2009_abv_dam,
-                                                         temperatures_2008_2009_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
 ## 2018 2019
 monthly_mean_temperature_2018_2019_abv_dam <- monthly_mean_temperature_2018_2019 |>
-  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 17, 17, monthly_mean_temp_c))
+  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
 temperatures_2018_2019_abv_dam <- temperatures_2018_2019 |>
-  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 17, 17, mean_daily_temp_C),
+  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
          mean_daily_temp_F = ifelse(mean_daily_temp_F >= 62.6, 62.6, mean_daily_temp_F))
 
 degree_days_2018_2019_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_2018_2019_abv_dam,
@@ -347,8 +339,7 @@ temperatures_run_of_river_abv_dam <- temperatures_run_of_river |>
 degree_days_run_of_river_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_run_of_river_abv_dam,
                                                             temperatures_run_of_river_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
 
-degree_days_sr_abv_dam <- list(biop_2008_2009 = degree_days_2008_2009_sr_abv_dam,
-                       biop_itp_2018_2019 = degree_days_2018_2019_sr_abv_dam,
+degree_days_sr_abv_dam <- list(biop_itp_2018_2019 = degree_days_2018_2019_sr_abv_dam,
                        run_of_river = degree_days_run_of_river_sr_abv_dam)
 
 usethis::use_data(degree_days_sr_abv_dam, overwrite = TRUE)
