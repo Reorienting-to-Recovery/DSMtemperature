@@ -318,23 +318,24 @@ degree_days_sr <- list(biop_2008_2009 = degree_days_2008_2009_sr,
 usethis::use_data(degree_days_sr, overwrite = TRUE)
 
 # degree days for above dam that max out at 17 degrees
-# TODO: is 17 the correct threshold value. Double check. Explore how the threshold affects output
+# TODO: is 13 the correct threshold value. Double check. Explore how the threshold affects output
 
 ## 2018 2019
 monthly_mean_temperature_2018_2019_abv_dam <- monthly_mean_temperature_2018_2019 |>
   mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
 temperatures_2018_2019_abv_dam <- temperatures_2018_2019 |>
   mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
-         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 62.6, 62.6, mean_daily_temp_F))
+         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
 
 degree_days_2018_2019_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_2018_2019_abv_dam,
                                                          temperatures_2018_2019_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
 ## run of river
+## Note: unsure we are using run of river, but prepped in case:
 monthly_mean_temperature_run_of_river_abv_dam <- monthly_mean_temperature_run_of_river |>
-  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 17, 17, monthly_mean_temp_c))
+  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
 temperatures_run_of_river_abv_dam <- temperatures_run_of_river |>
-  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 17, 17, mean_daily_temp_C),
-         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 62.6, 62.6, mean_daily_temp_F))
+  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
+         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
 
 degree_days_run_of_river_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_run_of_river_abv_dam,
                                                             temperatures_run_of_river_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
