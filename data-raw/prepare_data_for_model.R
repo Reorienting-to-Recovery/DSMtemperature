@@ -317,6 +317,34 @@ degree_days_sr <- list(biop_2008_2009 = degree_days_2008_2009_sr,
 
 usethis::use_data(degree_days_sr, overwrite = TRUE)
 
+# degree days for above dam that max out at 13 degrees
+# TODO: is 13 the correct threshold value?
+
+## 2018 2019
+monthly_mean_temperature_2018_2019_abv_dam <- monthly_mean_temperature_2018_2019 |>
+  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
+temperatures_2018_2019_abv_dam <- temperatures_2018_2019 |>
+  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
+         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
+
+degree_days_2018_2019_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_2018_2019_abv_dam,
+                                                         temperatures_2018_2019_abv_dam, "2018 & 2019 Hec5q", no_spawning_regions_sr)
+## run of river
+## Note: unsure we are using run of river, but prepped in case:
+monthly_mean_temperature_run_of_river_abv_dam <- monthly_mean_temperature_run_of_river |>
+  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
+temperatures_run_of_river_abv_dam <- temperatures_run_of_river |>
+  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
+         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
+
+degree_days_run_of_river_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_run_of_river_abv_dam,
+                                                            temperatures_run_of_river_abv_dam, "run of river", no_spawning_regions_sr)
+
+degree_days_sr_abv_dam <- list(biop_itp_2018_2019 = degree_days_2018_2019_sr_abv_dam,
+                       run_of_river = degree_days_run_of_river_sr_abv_dam)
+
+usethis::use_data(degree_days_sr_abv_dam, overwrite = TRUE)
+
 # FR and  SR Egg temperature effect -----
 mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
   mutate(mean_temp_effect = (Dry + Wet)/2) %>%
