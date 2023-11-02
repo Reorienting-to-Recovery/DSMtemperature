@@ -317,8 +317,8 @@ degree_days_sr <- list(biop_2008_2009 = degree_days_2008_2009_sr,
 
 usethis::use_data(degree_days_sr, overwrite = TRUE)
 
-# degree days for above dam that max out at 17 degrees
-# TODO: is 13 the correct threshold value. Double check. Explore how the threshold affects output
+# degree days for above dam that max out at 13 degrees
+# TODO: is 13 the correct threshold value?
 
 ## 2018 2019
 monthly_mean_temperature_2018_2019_abv_dam <- monthly_mean_temperature_2018_2019 |>
@@ -328,7 +328,7 @@ temperatures_2018_2019_abv_dam <- temperatures_2018_2019 |>
          mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
 
 degree_days_2018_2019_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_2018_2019_abv_dam,
-                                                         temperatures_2018_2019_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
+                                                         temperatures_2018_2019_abv_dam, "2018 & 2019 Hec5q", no_spawning_regions_sr)
 ## run of river
 ## Note: unsure we are using run of river, but prepped in case:
 monthly_mean_temperature_run_of_river_abv_dam <- monthly_mean_temperature_run_of_river |>
@@ -338,7 +338,7 @@ temperatures_run_of_river_abv_dam <- temperatures_run_of_river |>
          mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
 
 degree_days_run_of_river_sr_abv_dam <- generate_degree_days(monthly_mean_temperature_run_of_river_abv_dam,
-                                                            temperatures_run_of_river_abv_dam, "2008 & 2009 Hec5q", no_spawning_regions_sr)
+                                                            temperatures_run_of_river_abv_dam, "run of river", no_spawning_regions_sr)
 
 degree_days_sr_abv_dam <- list(biop_itp_2018_2019 = degree_days_2018_2019_sr_abv_dam,
                        run_of_river = degree_days_run_of_river_sr_abv_dam)
