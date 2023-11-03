@@ -1,19 +1,19 @@
 title: DSMtemperature
-url: https://CVPIA-OSC.github.io/DSMtemperature/
+url: https://reorienting-to-recovery.github.io/DSMtemperature/
 template:
   params:
-    bootswatch: yeti
+    bootswatch: flatly
 
 home:
   links:
-  - text: Fish and Wildlife Service's CVPIA website
-    href: https://www.fws.gov/lodi/anadromous_fish_restoration/
-  - text: Bureau of Reclamation's CVPIA website
-    href: https://www.usbr.gov/mp/cvpia/
+  - text: Reorienting to Recovery Project Website
+    href: https://csamp.baydeltalive.com/recovery/reorienting-to-recovery
+  - text: Reorienting to Recovery Modeling Overview Website
+    href: https://reorienting-to-recovery.gitbook.io/documentation-site/zCZ2Z2yqFYMUQrtZdTlg/
 
 reference:
 - title: Temperature Datasets
-  desc: Temperature related data sets used by the CVPIA Salmon Population Model
+  desc: Temperature related data sets used by the R2R Salmon Population Model
   contents:
   - stream_temperature
   - delta_temperature
@@ -28,13 +28,12 @@ navbar:
   left:
   - text: 'Reference'
     href: reference/index.html
-  - text: 'News'
-    href: news/index.html
+
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/CVPIA-OSC/DSMtemperature
+    href: https://github.com/reorienting-to-recovery/DSMtemperature
 
 repo:
  url:
-  home: https://github.com/CVPIA-OSC/DSMtemperature
-  issue: https://github.com/CVPIA-OSC/DSMtemperature/issues/
+  home: https://github.com/reorienting-to-recovery/DSMtemperature
+  issue: https://github.com/reorienting-to-recovery/DSMtemperature/issues/

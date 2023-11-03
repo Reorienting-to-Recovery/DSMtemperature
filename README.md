@@ -1,19 +1,17 @@
-<img src="man/figures/cvpia_logo.jpg" align="right" width="40%"/>
+### Modeled Temperature Data for the Reorienting to Recovery Model
 
-### Modeled Temperature Data for the CVPIA SIT Model
-
-*This data package contains modeled temperature data for each of the watersheds within the CVPIA salmon life cycle model.*
+*This data package contains modeled temperature data for each of the watersheds within the Reorienting to Recover (R2R) salmon life cycle model.*
 
 #### Installation
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("CVPIA-OSC/DSMtemperature")
+remotes::install_github("reorienting-to-recovery/DSMtemperature")
 ```
 
 #### Usage
-This package provides temperature related datasets to the [`fallRunDSM,`](https://github.com/CVPIA-OSC/fallRunDSM)
-[`springRunDSM,`](https://github.com/CVPIA-OSC/springRunDSM) [`winterRunDSM,`](https://github.com/CVPIA-OSC/winterRunDSM) and [`latefallRunDSM`](https://github.com/CVPIA-OSC/latefallRunDSM) packages.
+This package provides temperature related datasets to the [`fallRunDSM,`](https://github.com/reorienting-to-recovery/fallRunDSM)
+[`springRunDSM,`](https://github.com/reorienting-to-recovery/springRunDSM) and [`winterRunDSM`](https://github.com/reorienting-to-recovery/winterRunDSM) packages.
 
 ``` r
 # datasets within the package
@@ -24,7 +22,7 @@ data(package = 'DSMtemperature')
 ```
 
 #### About the Models
-Temperature inputs to the CVPIA Decision Support Model (DSM) were developed using one of the following methods:   
+Temperature inputs to the Reorienting to Recovery models were developed using one of the following methods:   
 
 1. HEC5Q water temperature model
 2. Measured water temperatures
@@ -34,7 +32,7 @@ Temperature inputs to the CVPIA Decision Support Model (DSM) were developed usin
 The HEC5Q model accepts flow inputs from the CALSIM II water resources system operations planning model. The DSMtemperature package contains HEC5Q from two distinct model runs: 2008-2009 CalSim II run and 2018-2019 CalSim II BiOp runs. Watershed specific methods are detailed on the Reference tab. 
 
 ### Dependencies
-The `DSMTemperature` package provides data for several other packages within the [CVPIA Open Science Collaborative](https://github.com/CVPIA-OSC). These relationships are visualized in the dependency graph below. 
+The `DSMTemperature` package provides data for several other packages within the [Reorienting to Recovery Organization](https://github.com/reorienting-to-recovery). These relationships are visualized in the dependency graph below. 
 
 <img src="man/figures/dependencyChain.svg" width="100%"/>
    
